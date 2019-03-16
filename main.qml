@@ -1,18 +1,25 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.3
+import QGuov.Controller.Login 1.0
 
 ApplicationWindow {
   id: window
   visible: true
-  width: 480
-  height: 800
+  width: 300
+  height: 500
   title: qsTr("ГУОВ")
 
   Material.theme: Material.Light
   Material.accent: Material.Dark
 
   property real controlsWidth: width * 0.4
+
+  LoginController {
+      id: loginController
+      login: login.text
+      password: password.text
+  }
 
   Image {
     id: logo
@@ -35,6 +42,7 @@ ApplicationWindow {
     }
     width: controlsWidth
     placeholderText: qsTr("Логин")
+    text: loginController.login
   }
   TextField {
     id: password
@@ -44,6 +52,7 @@ ApplicationWindow {
     }
     width: controlsWidth
     placeholderText: qsTr("Пароль")
+    text: loginController.password
   }
   Button {
     id: submit
