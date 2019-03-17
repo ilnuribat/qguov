@@ -3,12 +3,13 @@
 
 #include <QObject>
 #include <QDebug>
+#include "httprequest.h"
+
 class LoginController : public QObject
 {
   Q_OBJECT
   Q_PROPERTY(QString login READ login WRITE setLogin NOTIFY loginChanged)
   Q_PROPERTY(QString password READ password WRITE setPassword NOTIFY passwordChanged)
-  Q_INVOKABLE void submitLogin();
 
 public:
   explicit LoginController(QObject *parent = nullptr);
@@ -22,6 +23,9 @@ public:
 signals:
   void loginChanged(QString login);
   void passwordChanged(QString password);
+
+public slots:
+  void submitLogin();
 
 private:
   QString m_login;

@@ -1,9 +1,6 @@
 #include "logincontroller.h"
 
-LoginController::LoginController(QObject *parent) : QObject(parent)
-{
-
-}
+LoginController::LoginController(QObject *parent) : QObject(parent) {}
 
 QString LoginController::login() {
   return this->m_login;
@@ -32,4 +29,11 @@ void LoginController::setPassword(const QString password) {
   this->m_password = password;
 
   emit this->passwordChanged(this->m_password);
+}
+
+void LoginController::submitLogin() {
+  qDebug() << "submit login";
+  HttpRequest *httpRequest = new HttpRequest();
+
+  httpRequest->login(this->m_login, this->m_password);
 }

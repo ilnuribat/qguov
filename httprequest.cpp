@@ -2,6 +2,12 @@
 
 HttpRequest::HttpRequest()
 {
+  this->login("ibatullin.it", "123");
+}
+
+void HttpRequest::login(QString login, QString password) {
+  Q_UNUSED(login);
+  Q_UNUSED(password);
   pManager = new QNetworkAccessManager(this);
   request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
@@ -19,10 +25,10 @@ HttpRequest::HttpRequest()
   request.setUrl(QUrl(URL));
 
   QString gql = R"(
-    mutation {
+    mutation($login: String!, $password: String!) {
       login(user: {
-        email: "ibatullin.it"
-        password: "123"
+        email: $login
+        password: $password
       }) {
         id
         token
@@ -31,9 +37,15 @@ HttpRequest::HttpRequest()
 
   QJsonDocument *jsonDoc = new QJsonDocument();
 
+  QJsonObject vars {
+    { "login", login },
+    { "password", password },
+  };
+
   QJsonObject jsonObject
   {
-    {"query", gql}
+    { "query", gql },
+    { "variables", vars },
   };
 
   jsonDoc->setObject(jsonObject);
@@ -42,9 +54,4 @@ HttpRequest::HttpRequest()
 
   qDebug() << requestBody;
   pManager->post(request, requestBody.toUtf8());
-}
-
-void HttpRequest::login(QString login, QString password) {
-  Q_UNUSED(login);
-  Q_UNUSED(password);
 }
