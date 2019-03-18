@@ -7,6 +7,7 @@
 #include <QNetworkRequest>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QSettings>
 
 class HttpRequest: public QObject
 {
@@ -19,6 +20,7 @@ class HttpRequest: public QObject
     QString URL = "http://dev.scis.xyz/api";
     QNetworkAccessManager *pManager;
     QNetworkRequest request;
+    QSettings *settings;
 };
 
 #endif // HTTPREQUEST_H

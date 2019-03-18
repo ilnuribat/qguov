@@ -3,6 +3,7 @@
 HttpRequest::HttpRequest()
 {
   this->login("ibatullin.it", "123");
+  settings = new QSettings();
 }
 
 void HttpRequest::login(QString login, QString password) {
@@ -19,7 +20,18 @@ void HttpRequest::login(QString login, QString password) {
 
     QString response = QString(reply->readAll());
 
-    qDebug() << response;
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(response.toUtf8());
+    qDebug() << jsonDoc.toJson(QJsonDocument::Compact);
+    QJsonObject jsObject = jsonDoc.object();
+
+    if (jsObject.contains("errors")) {
+      qDebug() << "error!" << jsObject.value("errors").toString();
+    }
+
+    QString token = jsObject.value("data").toObject().value("login").toObject().value("token").toString();
+
+    settings->setValue("token", token);
+
   });
 
   request.setUrl(QUrl(URL));
@@ -52,6 +64,5 @@ void HttpRequest::login(QString login, QString password) {
 
   QString requestBody(jsonDoc->toJson(QJsonDocument::Compact));
 
-  qDebug() << requestBody;
   pManager->post(request, requestBody.toUtf8());
 }

@@ -13,9 +13,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        main.cpp \
-    httprequest.cpp \
-    logincontroller.cpp
+  main.cpp \
+  httprequest.cpp \
+  logincontroller.cpp \
+  stackviewcontroller.cpp
 
 RESOURCES += qml.qrc
 
@@ -31,5 +32,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    httprequest.h \
-    logincontroller.h
+  httprequest.h \
+  logincontroller.h \
+  stackviewcontroller.h
+
+DISTFILES += \
+  initPage.qml \
+  chat.qml \
+  login.qml \
+  main.qml

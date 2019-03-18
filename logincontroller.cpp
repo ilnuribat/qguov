@@ -1,6 +1,8 @@
 #include "logincontroller.h"
 
-LoginController::LoginController(QObject *parent) : QObject(parent) {}
+LoginController::LoginController(QObject *parent) : QObject(parent) {
+  settings = new QSettings();
+}
 
 QString LoginController::login() {
   return this->m_login;

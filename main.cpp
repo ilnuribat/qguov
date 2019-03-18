@@ -4,7 +4,7 @@
 
 #include "httprequest.h"
 #include "logincontroller.h"
-
+#include "stackviewcontroller.h"
 
 int main(int argc, char *argv[]) {
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -14,6 +14,7 @@ int main(int argc, char *argv[]) {
   QQuickStyle::setStyle("Material");
 
   qmlRegisterType<LoginController>("QGuov.Controller.Login", 1, 0, "LoginController");
+  qmlRegisterType<StackViewController>("QGuov.Controller.StackView", 1, 0, "StackViewController");
 
   QQmlApplicationEngine engine;
 

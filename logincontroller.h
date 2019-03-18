@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QDebug>
+#include <QSettings>
 #include "httprequest.h"
 
 class LoginController : public QObject
@@ -30,6 +31,7 @@ public slots:
 private:
   QString m_login;
   QString m_password;
+  QSettings *settings;
 
 public slots:
 };
