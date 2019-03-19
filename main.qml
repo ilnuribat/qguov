@@ -9,7 +9,7 @@ ApplicationWindow {
   id: window
   visible: true
   width: 500
-  height: 900
+  height: 500
   title: qsTr("ГУОВ")
 
   StackViewController {

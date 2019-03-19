@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.3
 import QtQuick.Layouts 1.3
+import QGuov.Model.ChatsModel 1.0
 
 Item {
   Item {
@@ -16,8 +17,12 @@ Item {
       text: 'Chat page'
     }
   }
+  ChatsModel {
+      id: chatsModel
+  }
+
   ListModel {
-    id: chatsModel
+    id: chatsModelQML
     ListElement {
       name: "menog"
       date: "11.03.2019"
@@ -72,7 +77,7 @@ Item {
         }
         ColumnLayout {
           Text {
-            text: name
+            text: initials
             Layout.alignment: Qt.AlignTop
             Layout.fillHeight: true
             topPadding: 8

@@ -16,7 +16,9 @@ SOURCES += \
   main.cpp \
   httprequest.cpp \
   logincontroller.cpp \
-  stackviewcontroller.cpp
+  stackviewcontroller.cpp \
+    chatsmodel.cpp \
+    chatlistelement.cpp
 
 RESOURCES += qml.qrc
 
@@ -34,7 +36,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
   httprequest.h \
   logincontroller.h \
-  stackviewcontroller.h
+  stackviewcontroller.h \
+    chatsmodel.h \
+    chatlistelement.h
 
 DISTFILES += \
   initPage.qml \

@@ -13,7 +13,6 @@ void HttpRequest::login(QString login, QString password) {
   request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
   connect(pManager, &QNetworkAccessManager::finished, [=] (QNetworkReply *reply) {
-    qDebug () << "request is ready";
     if (reply->error()) {
       qDebug() << "error!";
     }
@@ -21,7 +20,6 @@ void HttpRequest::login(QString login, QString password) {
     QString response = QString(reply->readAll());
 
     QJsonDocument jsonDoc = QJsonDocument::fromJson(response.toUtf8());
-    qDebug() << jsonDoc.toJson(QJsonDocument::Compact);
     QJsonObject jsObject = jsonDoc.object();
 
     if (jsObject.contains("errors")) {
