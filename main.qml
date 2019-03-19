@@ -14,13 +14,28 @@ ApplicationWindow {
 
   StackViewController {
     id: stackViewController
+    onGoToPageChanged: {
+      console.log('page is:', page);
+      switch (page) {
+        case 'login':
+          stackView.replace(Qt.resolvedUrl('./login.qml'));
+          break;
+
+        case 'chat':
+          stackView.replace(Qt.resolvedUrl('./chat.qml'));
+          break;
+        default:
+          console.error('no page on signal!');
+
+      }
+    }
   }
 
   StackView {
     id: stackView
     anchors.fill: parent
     focus: true
-    initialItem: Qt.resolvedUrl('./login.qml')
+    initialItem: Qt.resolvedUrl('./initPage.qml')
 
     Keys.onReleased: {
       if (event.key === Qt.Key_Back || event.key === Qt.Key_Escape) {
@@ -35,4 +50,5 @@ ApplicationWindow {
 
   property real controlsWidth: width * 0.4
 
+  Component.onCompleted: stackViewController.handleAuthToken();
 }

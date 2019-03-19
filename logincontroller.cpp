@@ -14,7 +14,6 @@ void LoginController::setLogin(const QString login) {
   }
   this->m_login = login;
 
-  qDebug() << "login changed: " << login;
   emit this->loginChanged(this->m_login);
 }
 
@@ -27,14 +26,12 @@ void LoginController::setPassword(const QString password) {
     return;
   }
 
-  qDebug() << "password changed " << this->m_password;
   this->m_password = password;
 
   emit this->passwordChanged(this->m_password);
 }
 
 void LoginController::submitLogin() {
-  qDebug() << "submit login";
   HttpRequest *httpRequest = new HttpRequest();
 
   httpRequest->login(this->m_login, this->m_password);

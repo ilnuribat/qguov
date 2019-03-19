@@ -8,14 +8,19 @@
 class StackViewController : public QObject
 {
     Q_OBJECT
+
   public:
     explicit StackViewController(QObject *parent = nullptr);
 
+    Q_INVOKABLE void handleAuthToken();
+
   signals:
+    void goToPageChanged(QString page);
 
   public slots:
   private:
     QSettings *settings;
+    QString m_lastGoToPage;
 };
 
 #endif // STACKVIEWCONTROLLER_H
