@@ -2,7 +2,7 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>login.qml</file>
-        <file>chat.qml</file>
+        <file>chatList.qml</file>
         <file>initPage.qml</file>
     </qresource>
 </RCC>

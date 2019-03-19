@@ -38,6 +38,6 @@ HEADERS += \
 
 DISTFILES += \
   initPage.qml \
-  chat.qml \
   login.qml \
-  main.qml
+  main.qml \
+  chatList.qml

@@ -18,6 +18,6 @@ void StackViewController::handleAuthToken() {
   }
 
   qDebug() << "token is ready" << token;
-  emit this->goToPageChanged("chat");
+  emit this->goToPageChanged("chatList");
   // show chat page
 }
