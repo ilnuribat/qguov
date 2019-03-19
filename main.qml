@@ -8,8 +8,8 @@ import '.'
 ApplicationWindow {
   id: window
   visible: true
-  width: 300
-  height: 500
+  width: 500
+  height: 900
   title: qsTr("ГУОВ")
 
   StackViewController {
