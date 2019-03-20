@@ -14,11 +14,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
   main.cpp \
-  httprequest.cpp \
   logincontroller.cpp \
   stackviewcontroller.cpp \
-    chatsmodel.cpp \
-    chatlistelement.cpp
+  chatsmodel.cpp \
+  chatlistelement.cpp \
+  httpclient.cpp
 
 RESOURCES += qml.qrc
 
@@ -34,11 +34,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-  httprequest.h \
   logincontroller.h \
   stackviewcontroller.h \
-    chatsmodel.h \
-    chatlistelement.h
+  chatsmodel.h \
+  chatlistelement.h \
+  httpclient.h
 
 DISTFILES += \
   initPage.qml \

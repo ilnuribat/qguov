@@ -2,7 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
 
-#include "httprequest.h"
+#include "httpclient.h"
 #include "logincontroller.h"
 #include "stackviewcontroller.h"
 #include "chatsmodel.h"
@@ -22,11 +22,17 @@ int main(int argc, char *argv[]) {
 
   engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
+  QObject *obj = engine.findChild<QObject*>("stackView");
+
+  if (obj) {
+    qDebug() << "object found!";
+  } else {
+    qDebug() << "object not found";
+  }
+
   if (engine.rootObjects().isEmpty()) {
     return -1;
   }
-
-  new HttpRequest();
 
   return app.exec();
 }

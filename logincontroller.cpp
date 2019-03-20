@@ -14,7 +14,7 @@ void LoginController::setLogin(const QString login) {
   }
   this->m_login = login;
 
-  emit this->loginChanged(this->m_login);
+  emit this->loginChanged();
 }
 
 QString LoginController::password() {
@@ -28,11 +28,50 @@ void LoginController::setPassword(const QString password) {
 
   this->m_password = password;
 
-  emit this->passwordChanged(this->m_password);
+  emit this->passwordChanged();
+}
+
+QString LoginController::resultMessage() const {
+  return m_resultMessage;
+}
+
+void LoginController::setStackView(QObject *stackView) {
+  if (stackView) {
+    qDebug() << "set stackview, not empty";
+  }
+
+  m_stackView = qobject_cast<StackViewController*>(stackView);
+}
+
+void LoginController::loginResponse(QJsonObject &object) {
+  if (object.contains("errors")) {
+    qDebug() << "error!" << object.value("errors").toArray().at(0).toObject();
+    m_resultMessage = "Неверные логин или пароль";
+    emit this->resultMessageChanged();
+  }
+
+  QString token = object.value("data").toObject().value("login").toObject().value("token").toString();
+
+  settings->setValue("token", token);
 }
 
 void LoginController::submitLogin() {
-  HttpRequest *httpRequest = new HttpRequest();
+  HttpClient *httpRequest = new HttpClient();
 
-  httpRequest->login(this->m_login, this->m_password);
+  connect(httpRequest, &HttpClient::responseReady, this, &LoginController::loginResponse);
+
+  httpRequest->request(R"(
+                        mutation($email: String!, $password: String!) {
+                          login(user: {
+                            email: $email
+                            password: $password
+                          }) {
+                            id
+                            token
+                          }
+                        })",
+    QJsonObject {
+      { "email", this->login() },
+      { "password", this->password() },
+  });
 }

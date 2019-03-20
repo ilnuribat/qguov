@@ -10,10 +10,11 @@ ApplicationWindow {
   visible: true
   width: 500
   height: 500
-  title: qsTr("ГУОВ")
+  title: stackViewController.currentPage
 
   StackViewController {
     id: stackViewController
+    objectName: "stackView"
     onGoToPageChanged: {
       console.log('page is:', page);
       switch (page) {
@@ -29,6 +30,11 @@ ApplicationWindow {
 
       }
     }
+
+    Component.onCompleted: {
+      console.log('stackView controller completed');
+      stackViewController.handleAuthToken();
+    }
   }
 
   StackView {
@@ -43,12 +49,11 @@ ApplicationWindow {
         event.accepted = true;
       }
     }
+    Component.onCompleted: console.log('stackview completed');
   }
 
   Material.theme: Material.Light
   Material.accent: Material.Dark
 
   property real controlsWidth: width * 0.4
-
-  Component.onCompleted: stackViewController.handleAuthToken();
 }

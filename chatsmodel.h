@@ -5,6 +5,7 @@
 #include <QAbstractListModel>
 #include <QDateTime>
 #include "chatlistelement.h"
+#include "httpclient.h"
 
 class ChatsModel : public QAbstractListModel
 {

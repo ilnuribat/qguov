@@ -8,18 +8,25 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QSettings>
+#include <QDebug>
 
-class HttpRequest: public QObject
+class HttpClient: public QObject
 {
+  Q_OBJECT
   public:
-    HttpRequest();
+    HttpClient();
 
     void login(QString login, QString passwod);
+    void request(QString query, QJsonObject variables);
+    // void request(QString query);
+
+  signals:
+    void responseReady(QJsonObject &object);
+  public slots:
+    void handleResponse(QNetworkReply *reply);
 
   private:
     QString URL = "http://dev.scis.xyz/api";
-    QNetworkAccessManager *pManager;
-    QNetworkRequest request;
     QSettings *settings;
 };
 
