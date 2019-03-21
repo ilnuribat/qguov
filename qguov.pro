@@ -18,7 +18,8 @@ SOURCES += \
   stackviewcontroller.cpp \
   chatsmodel.cpp \
   chatlistelement.cpp \
-  httpclient.cpp
+  httpclient.cpp \
+    globalstore.cpp
 
 RESOURCES += qml.qrc
 
@@ -38,7 +39,8 @@ HEADERS += \
   stackviewcontroller.h \
   chatsmodel.h \
   chatlistelement.h \
-  httpclient.h
+  httpclient.h \
+    globalstore.h
 
 DISTFILES += \
   initPage.qml \

@@ -17,25 +17,6 @@ Item {
       text: 'Chat page'
     }
   }
-  ChatsModel {
-      id: chatsModel
-  }
-
-  ListModel {
-    id: chatsModelQML
-    ListElement {
-      name: "menog"
-      date: "11.03.2019"
-      message: "hi!"
-      icon: "http://dev.scis.xyz/images/download"
-    }
-    ListElement {
-      name: "Maxim"
-      date: "12.03.2019"
-      message: "good!"
-      icon: "http://dev.scis.xyz/images/Ибатуллин Ильнур Тимерьярович"
-    }
-  }
 
   ListView {
     anchors {
@@ -44,7 +25,7 @@ Item {
       right: parent.right
       bottom: parent.bottom
     }
-    model: chatsModel
+    model: globalStore.chatsModel
     spacing: 10
     delegate: Item {
       Rectangle {

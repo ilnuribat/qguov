@@ -2,11 +2,8 @@
 
 ChatsModel::ChatsModel(QObject *parent): QAbstractListModel (parent)
 {
-  qDebug() << "init of chatsModel";
   m_list.append(new ChatListElement("Maxim", "http://dev.scis.xyz/images/download", "good!", QDateTime::fromString("2019-03-20", "yyyy-MM-dd")));
   m_list.append(new ChatListElement("Kirill", "http://dev.scis.xyz/images/Ибатуллин Ильнур Тимерьярович", "ok", QDateTime::fromString("2019-03-19", "yyyy-MM-dd")));
-
-  HttpClient *httpClient = new HttpClient();
 }
 
 int ChatsModel::rowCount(const QModelIndex &parent) const {

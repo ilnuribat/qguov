@@ -3,6 +3,7 @@ import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.3
 import QGuov.Controller.Login 1.0
 import QGuov.Controller.StackView 1.0
+import QGuov.Model.GlobalStore 1.0
 import '.'
 
 ApplicationWindow {
@@ -11,6 +12,10 @@ ApplicationWindow {
   width: 500
   height: 500
   title: qsTr("ГУОВ Стимул")
+
+  GlobalStore {
+    id: globalStore
+  }
 
   StackViewController {
     id: stackViewController
@@ -31,7 +36,6 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
-      console.log('stackView controller completed');
       stackViewController.handleAuthToken();
     }
   }
@@ -48,7 +52,6 @@ ApplicationWindow {
         event.accepted = true;
       }
     }
-    Component.onCompleted: console.log('stackview completed');
   }
 
   Material.theme: Material.Light
