@@ -7,6 +7,7 @@
 #include "stackviewcontroller.h"
 #include "chatsmodel.h"
 #include "globalstore.h"
+#include "chatlistcontroller.h"
 
 int main(int argc, char *argv[]) {
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -19,6 +20,7 @@ int main(int argc, char *argv[]) {
   qmlRegisterType<StackViewController>("QGuov.Controller.StackView", 1, 0, "StackViewController");
   qmlRegisterType<ChatsModel>("QGuov.Model.ChatsModel", 1, 0, "ChatsModel");
   qmlRegisterType<GlobalStore>("QGuov.Model.GlobalStore", 1, 0, "GlobalStore");
+  qmlRegisterType<ChatListController>("QGuov.Controller.ChatListController", 1, 0, "ChatListController");
 
   QQmlApplicationEngine engine;
 

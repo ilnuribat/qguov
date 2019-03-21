@@ -2,8 +2,12 @@
 
 ChatsModel::ChatsModel(QObject *parent): QAbstractListModel (parent)
 {
-  m_list.append(new ChatListElement("Maxim", "http://dev.scis.xyz/images/download", "good!", QDateTime::fromString("2019-03-20", "yyyy-MM-dd")));
-  m_list.append(new ChatListElement("Kirill", "http://dev.scis.xyz/images/Ибатуллин Ильнур Тимерьярович", "ok", QDateTime::fromString("2019-03-19", "yyyy-MM-dd")));
+}
+
+void ChatsModel::appendChat(ChatListElement *chat) {
+  beginInsertRows(QModelIndex(), m_list.size(), m_list.size());
+  m_list.append(chat);
+  endInsertRows();
 }
 
 int ChatsModel::rowCount(const QModelIndex &parent) const {

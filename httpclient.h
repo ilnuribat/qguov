@@ -18,7 +18,7 @@ class HttpClient: public QObject
 
     void login(QString login, QString passwod);
     void request(QString query, QJsonObject variables);
-    // void request(QString query);
+    void request(QString query);
 
   signals:
     void responseReady(QJsonObject &object);

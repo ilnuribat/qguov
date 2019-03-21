@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.3
 import QtQuick.Layouts 1.3
-import QGuov.Model.ChatsModel 1.0
+import QGuov.Controller.ChatListController 1.0
 
 Item {
   Item {
@@ -18,6 +18,10 @@ Item {
     }
   }
 
+  ChatListController {
+    globalStore: globalStoreModel
+  }
+
   ListView {
     anchors {
       top: header.bottom
@@ -25,7 +29,7 @@ Item {
       right: parent.right
       bottom: parent.bottom
     }
-    model: globalStore.chatsModel
+    model: globalStoreModel.chatsModel
     spacing: 10
     delegate: Item {
       Rectangle {

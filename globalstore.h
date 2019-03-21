@@ -2,6 +2,7 @@
 #define GLOBALSTORE_H
 
 #include <QObject>
+#include <QDebug>
 #include "chatsmodel.h"
 
 class GlobalStore : public QObject

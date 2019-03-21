@@ -10,8 +10,8 @@ Item {
     login: login.text
     password: password.text
     stackView: stackViewController
-    Component.onCompleted: console.log('login controller completed');
   }
+  property real controlsWidth: width * 0.4
   Item {
     anchors {
       top: parent.top

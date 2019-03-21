@@ -17,7 +17,13 @@ void HttpClient::handleResponse(QNetworkReply *reply) {
   QJsonObject jsonObject = QJsonDocument::fromJson(reply->readAll()).object();
 
   emit this->responseReady(jsonObject);
- }
+}
+
+void HttpClient::request(QString query) {
+  QJsonObject emptyObj {};
+
+  this->request(query, emptyObj);
+}
 
 void HttpClient::request(QString query, QJsonObject variables) {
   QNetworkAccessManager *pManager = new QNetworkAccessManager(this);
@@ -28,6 +34,12 @@ void HttpClient::request(QString query, QJsonObject variables) {
 
   m_request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
   m_request.setUrl(QUrl(URL));
+
+  QString token = settings->value("token").toString();
+
+  if (token.length() > 0) {
+    m_request.setRawHeader("Authorization", QString("Bearer " + token).toUtf8());
+  }
 
   QJsonObject gql
   {

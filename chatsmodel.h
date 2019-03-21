@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QAbstractListModel>
 #include <QDateTime>
+#include <QModelIndex>
 #include "chatlistelement.h"
 #include "httpclient.h"
 
@@ -18,6 +19,8 @@ public:
     dateRole
   };
   ChatsModel(QObject *parent = nullptr);
+
+  void appendChat(ChatListElement *chat);
 
   virtual int rowCount(const QModelIndex &parent) const;
   virtual QVariant data(const QModelIndex &index, int role) const;

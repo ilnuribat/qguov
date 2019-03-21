@@ -1,7 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.3
-import QGuov.Controller.Login 1.0
 import QGuov.Controller.StackView 1.0
 import QGuov.Model.GlobalStore 1.0
 import '.'
@@ -13,8 +12,18 @@ ApplicationWindow {
   height: 500
   title: qsTr("ГУОВ Стимул")
 
+  property bool isGlobalStoreReady: false
+  property bool isStackViewReady: false
+
   GlobalStore {
-    id: globalStore
+    id: globalStoreModel
+    Component.onCompleted: {
+      isGlobalStoreReady = true;
+      console.log('global store ready');
+      if (isStackViewReady && isGlobalStoreReady) {
+        stackViewController.handleAuthToken()
+      }
+    }
   }
 
   StackViewController {
@@ -36,7 +45,11 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
-      stackViewController.handleAuthToken();
+      isStackViewReady = true;
+      console.log('stackview ready');
+      if (isStackViewReady && isGlobalStoreReady) {
+        stackViewController.handleAuthToken();
+      }
     }
   }
 
@@ -56,6 +69,4 @@ ApplicationWindow {
 
   Material.theme: Material.Light
   Material.accent: Material.Dark
-
-  property real controlsWidth: width * 0.4
 }
