@@ -52,7 +52,11 @@ void LoginController::loginResponse(QJsonObject &object) {
 
   QString token = object.value("data").toObject().value("login").toObject().value("token").toString();
 
+  qDebug() << "token ready" << token;
+
   settings->setValue("token", token);
+
+  m_stackView->goChatsListPage();
 }
 
 void LoginController::submitLogin() {

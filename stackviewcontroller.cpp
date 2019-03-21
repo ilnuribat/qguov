@@ -13,7 +13,6 @@ void StackViewController::handleAuthToken() {
 
     // show login page
     emit this->goToPageChanged("login");
-    emit this->onCurrentPageChanged();
 
     return;
   }
@@ -21,10 +20,8 @@ void StackViewController::handleAuthToken() {
   qDebug() << "token is ready" << token;
 
   emit this->goToPageChanged("chatList");
-  emit this->onCurrentPageChanged();
-  // show chat page
 }
 
-QString StackViewController::currentPage() const {
-  return m_lastGoToPage;
+void StackViewController::goChatsListPage() {
+  emit this->goToPageChanged("chatList");
 }

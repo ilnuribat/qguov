@@ -10,7 +10,7 @@ ApplicationWindow {
   visible: true
   width: 500
   height: 500
-  title: stackViewController.currentPage
+  title: qsTr("ГУОВ Стимул")
 
   StackViewController {
     id: stackViewController
@@ -27,7 +27,6 @@ ApplicationWindow {
           break;
         default:
           console.error('no page on signal!');
-
       }
     }
 

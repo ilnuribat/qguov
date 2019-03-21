@@ -8,18 +8,16 @@
 class StackViewController : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString currentPage READ currentPage NOTIFY onCurrentPageChanged)
 
   public:
     explicit StackViewController(QObject *parent = nullptr);
 
     Q_INVOKABLE void handleAuthToken();
 
-    QString currentPage() const;
+    void goChatsListPage();
 
   signals:
     void goToPageChanged(QString page);
-    void onCurrentPageChanged();
 
   public slots:
   private:
