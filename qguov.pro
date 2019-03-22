@@ -21,7 +21,9 @@ SOURCES += \
   httpclient.cpp \
   globalstore.cpp \
   chatlistcontroller.cpp \
-    chatcontroller.cpp
+    chatcontroller.cpp \
+    messagesmodel.cpp \
+    messageelement.cpp
 
 RESOURCES += qml.qrc
 
@@ -44,7 +46,9 @@ HEADERS += \
   httpclient.h \
   globalstore.h \
   chatlistcontroller.h \
-    chatcontroller.h
+    chatcontroller.h \
+    messagesmodel.h \
+    messageelement.h
 
 DISTFILES += \
   initPage.qml \
