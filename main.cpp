@@ -8,6 +8,7 @@
 #include "chatsmodel.h"
 #include "globalstore.h"
 #include "chatlistcontroller.h"
+#include "chatcontroller.h"
 
 int main(int argc, char *argv[]) {
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -21,6 +22,7 @@ int main(int argc, char *argv[]) {
   qmlRegisterType<ChatsModel>("QGuov.Model.ChatsModel", 1, 0, "ChatsModel");
   qmlRegisterType<GlobalStore>("QGuov.Model.GlobalStore", 1, 0, "GlobalStore");
   qmlRegisterType<ChatListController>("QGuov.Controller.ChatListController", 1, 0, "ChatListController");
+  qmlRegisterType<ChatController>("QGuov.Controller.ChatController", 1, 0, "ChatController");
 
   QQmlApplicationEngine engine;
 

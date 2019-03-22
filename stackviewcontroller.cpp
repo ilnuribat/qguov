@@ -21,3 +21,7 @@ void StackViewController::handleAuthToken() {
 void StackViewController::goChatsListPage() {
   emit this->goToPageChanged("chatList");
 }
+
+void StackViewController::goChatPage() {
+  emit this->goToPageChanged("chat");
+}

@@ -16,7 +16,8 @@ public:
     initialsRole = Qt::UserRole + 1,
     iconRole,
     messageRole,
-    dateRole
+    dateRole,
+    idRole
   };
   ChatsModel(QObject *parent = nullptr);
 

@@ -2,10 +2,11 @@
 
 ChatListElement::ChatListElement() {}
 
-ChatListElement::ChatListElement(QString initials, QString icon, QString message, QDateTime date) {
+ChatListElement::ChatListElement(QString id, QString initials, QString icon, QString message, QDateTime date) {
   m_initials = initials;
   m_icon = icon;
   m_message = message;
+  m_id = id;
 
   if (!date.isValid()) {
     throw "invalid date";
@@ -29,6 +30,10 @@ QString ChatListElement::date() const {
   return m_date.toString("yyyy-MM-ddTHH:MM:ss");
 }
 
+QString ChatListElement::id() const {
+  return m_id;
+}
+
 void ChatListElement::setInitials(QString initials) {
   m_initials = initials;
 }
@@ -46,4 +51,8 @@ void ChatListElement::setDate(QDateTime date) {
     throw "date is invalid";
   }
   m_date = date;
+}
+
+void ChatListElement::setId(QString id) {
+  m_id = id;
 }

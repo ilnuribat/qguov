@@ -4,7 +4,11 @@ import QtQuick.Controls.Material 2.3
 import QtQuick.Layouts 1.3
 import QGuov.Controller.ChatListController 1.0
 
-Item {
+Page {
+  background: Rectangle {
+    color: "#f4f8f9"
+  }
+
   Item {
     id: header
     anchors.top: parent.top
@@ -19,10 +23,13 @@ Item {
   }
 
   ChatListController {
+    id: chatListController
     globalStore: globalStoreModel
+    stackView: stackViewController
   }
 
   ListView {
+    id: listView
     anchors {
       top: header.bottom
       left: parent.left
@@ -33,62 +40,71 @@ Item {
     spacing: 10
     delegate: Item {
       Rectangle {
-        anchors {
-          left: parent.left
-          right: parent.right
-          bottom: parent.bottom
+        // bottom blue line
+        anchors.fill: parent
+        z: -1
+        color: 'white'
+      }
+      MouseArea {
+        anchors.fill: parent
+        onClicked: {
+          globalStoreModel.currentChatId = id;
+          console.log('clicked', id, 'id' )
+          chatListController.goToChat();
         }
-        height: 1
-        color: 'blue'
       }
 
-      property int iconSize: 80
+      property int iconSize: 40
       width: parent.width
-      height: iconSize
+      height: 72
       RowLayout {
         anchors {
           left: parent.left
-          leftMargin: 15
+          leftMargin: 16
           right: parent.right
-          rightMargin: 15
+          rightMargin: 16
+          top: parent.top
+          bottom: parent.bottom
         }
-        height: parent.height
 
         Image {
           source: icon
-          height: parent.height
+          Layout.alignment: Qt.AlignVCenter
           Layout.maximumHeight: iconSize
           Layout.maximumWidth: iconSize
         }
+        spacing: 16
         ColumnLayout {
+          spacing: 0
           Text {
             text: initials
-            Layout.alignment: Qt.AlignTop
-            Layout.fillHeight: true
-            topPadding: 8
+            Layout.fillHeight: false
+            font.pointSize: 16
+            topPadding: 24 - font.pixelSize
             Rectangle {
-              // debug
-              anchors {
-                left: parent.left
-                right: parent.right
-                top: parent.top
-              }
-              height: 1
-              color: 'red'
+              // debug initials top red
+              anchors.fill: parent
+              visible: false
+              border.width: 1
+              border.color: "red"
+              opacity: 0.1
             }
           }
 
           RowLayout {
+            Layout.fillHeight: true
             Text {
               text: "<i>last message:</i> <b>" + message + "</b>"
+              font.pointSize: 12
               Rectangle {
-                anchors {
-                  left: parent.left
-                  right: parent.right
-                  bottom: parent.bottom
+                // debug lastMessage bottom red
+                anchors.fill: parent
+                visible: false
+                opacity: 0.3
+                border {
+                  color: 'red'
+                  width: 1
                 }
-                height: 1
-                color: 'red'
               }
               bottomPadding: 8
             }
@@ -98,7 +114,8 @@ Item {
               Layout.alignment: Qt.AlignRight
               horizontalAlignment: Text.AlignRight
               Rectangle {
-                // debug
+                // debug date right red
+                visible: false
                 anchors {
                   top: parent.top
                   bottom: parent.bottom

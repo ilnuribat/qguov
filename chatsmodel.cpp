@@ -26,6 +26,7 @@ QVariant ChatsModel::data(const QModelIndex &index, int role) const {
     case iconRole: return m_list.at(index.row())->icon();
     case messageRole: return m_list.at(index.row())->message();
     case dateRole: return m_list.at(index.row())->date();
+    case idRole: return m_list.at(index.row())->id();
 
     default: return QVariant();
   }
@@ -37,6 +38,7 @@ QHash <int, QByteArray> ChatsModel::roleNames() const {
   roles[iconRole] = "icon";
   roles[messageRole] = "message";
   roles[dateRole] = "date";
+  roles[idRole] = "id";
 
   return roles;
 }

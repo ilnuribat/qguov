@@ -39,6 +39,9 @@ ApplicationWindow {
         case 'chatList':
           stackView.replace(Qt.resolvedUrl('./chatList.qml'));
           break;
+        case 'chat':
+          stackView.push(Qt.resolvedUrl('./Chat.qml'));
+          break;
         default:
           console.error('no page on signal!');
       }

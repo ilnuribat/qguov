@@ -32,6 +32,7 @@ ChatListController::ChatListController(QObject *parent) : QObject(parent)
 
     for (int i = 0; i < directs.size(); ++i) {
       QJsonObject direct = directs.at(i).toObject();
+      QString id = direct.value("id").toString();
       QString initials = direct.value("user").toObject().value("initials").toString();
       QString icon = direct.value("user").toObject().value("icon").toString();
       QString text = direct.value("lastMessage").toObject().value("text").toString();
@@ -41,12 +42,21 @@ ChatListController::ChatListController(QObject *parent) : QObject(parent)
         icon = "http" + icon.right(icon.length() - 5);
       }
       qDebug() << initials << icon << text << createdAt.left(19) << date;
-      m_globalStore->chatsModel()->appendChat(new ChatListElement(initials, icon, text, date));
+      m_globalStore->chatsModel()->appendChat(new ChatListElement(id, initials, icon, text, date));
     }
     emit m_globalStore->chatsModelChanged();
   });
 }
 
+void ChatListController::goToChat() {
+  qDebug() << "chat id is " << m_globalStore->currentChatId();
+  m_stackView->goChatPage();
+}
+
 void ChatListController::setGlobalStore(QObject *globalStore) {
   m_globalStore = qobject_cast<GlobalStore*>(globalStore);
+}
+
+void ChatListController::setStackView(QObject *stackView) {
+  m_stackView = qobject_cast<StackViewController*>(stackView);
 }
