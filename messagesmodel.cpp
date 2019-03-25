@@ -9,6 +9,10 @@ int MessagesModel::rowCount(const QModelIndex &parent) const {
   return m_messages.size();
 }
 
+void MessagesModel::append(MessageElement *message) {
+  m_messages.push_back(message);
+}
+
 QVariant MessagesModel::data(const QModelIndex &index, int role) const {
   if (!index.isValid()) {
     return QVariant();

@@ -2,6 +2,8 @@
 #define CHATCONTROLLER_H
 
 #include <QObject>
+#include <QJsonArray>
+#include <QJsonObject>
 #include "globalstore.h"
 #include "httpclient.h"
 

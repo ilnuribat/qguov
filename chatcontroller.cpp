@@ -28,6 +28,7 @@ void ChatController::getMessages() {
             edges {
               node {
                 text
+                createdAt
               }
             }
           }
@@ -39,7 +40,11 @@ void ChatController::getMessages() {
   };
 
   connect(httpClient, &HttpClient::responseReady, [] (QJsonObject data) {
-    qDebug() << data;
+    QJsonArray messagesJson = data.value("data").toObject().value("direct").toObject().value("messages").toObject().value("edges").toArray();
+
+    for (int i = 0; i< messagesJson.size(); i ++) {
+      qDebug() << messagesJson.at(i).toObject();
+    }
   });
 
   httpClient->request(query, variables);
