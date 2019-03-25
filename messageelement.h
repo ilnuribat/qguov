@@ -6,15 +6,15 @@
 class MessageElement
 {
   public:
-    MessageElement(QString id, QString text, QString initials);
+    MessageElement(QString id, QString message, QString initials);
 
     QString getId() const;
-    QString getText() const;
+    QString getMessage() const;
     QString getInitials() const;
 
   private:
     QString m_id;
-    QString m_text;
+    QString m_message;
     QString m_initials;
 };
 

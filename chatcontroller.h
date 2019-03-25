@@ -17,6 +17,7 @@ class ChatController : public QObject
     void setGlobalStore(QObject *globalStore);
 
   signals:
+    void messagesLoaded();
 
   public slots:
   private:

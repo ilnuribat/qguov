@@ -1,8 +1,8 @@
 #include "messageelement.h"
 
-MessageElement::MessageElement(QString id, QString text, QString initials) {
+MessageElement::MessageElement(QString id, QString message, QString initials) {
   m_id = id;
-  m_text = text;
+  m_message = message;
   m_initials = initials;
 }
 
@@ -10,8 +10,8 @@ QString MessageElement::getId() const {
   return m_id;
 }
 
-QString MessageElement::getText() const {
-  return m_text;
+QString MessageElement::getMessage() const {
+  return m_message;
 }
 
 QString MessageElement::getInitials() const {

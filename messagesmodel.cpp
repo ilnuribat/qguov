@@ -10,7 +10,9 @@ int MessagesModel::rowCount(const QModelIndex &parent) const {
 }
 
 void MessagesModel::append(MessageElement *message) {
+  beginInsertRows(QModelIndex(), m_messages.size(), m_messages.size());
   m_messages.push_back(message);
+  endInsertRows();
 }
 
 QVariant MessagesModel::data(const QModelIndex &index, int role) const {
@@ -20,7 +22,7 @@ QVariant MessagesModel::data(const QModelIndex &index, int role) const {
 
   switch (role) {
     case idRole: return m_messages.at(index.row())->getId();
-    case textRole: return m_messages.at(index.row())->getText();
+    case messageRole: return m_messages.at(index.row())->getMessage();
     case initialsRole: return m_messages.at(index.row())->getInitials();
     default: return QVariant();
   };
@@ -29,8 +31,13 @@ QVariant MessagesModel::data(const QModelIndex &index, int role) const {
 QHash<int, QByteArray> MessagesModel::roleNames() const {
   QHash <int, QByteArray> roles = QAbstractListModel::roleNames();
   roles[idRole] = "id";
-  roles[textRole] = "text";
+  roles[messageRole] = "message";
   roles[initialsRole] = "initials";
 
   return roles;
+}
+
+void MessagesModel::clear() {
+  m_messages.clear();
+  removeRows(0, m_messages.size(), QModelIndex());
 }

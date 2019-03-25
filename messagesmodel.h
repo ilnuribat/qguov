@@ -12,13 +12,14 @@ class MessagesModel : public QAbstractListModel
   public:
     enum Roles {
       idRole = Qt::UserRole + 1,
-      textRole,
+      messageRole,
       initialsRole,
     };
 
     MessagesModel();
 
     void append(MessageElement *message);
+    void clear();
 
     virtual int rowCount(const QModelIndex &parent) const;
     virtual QVariant data(const QModelIndex &index, int role) const;
