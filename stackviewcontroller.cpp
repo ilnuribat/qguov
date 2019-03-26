@@ -15,7 +15,8 @@ void StackViewController::handleAuthToken() {
     return;
   }
 
-  emit this->goToPageChanged("chatList");
+  // emit this->goToPageChanged("chatList");
+  emit this->goToPageChanged("Realtime");
 }
 
 void StackViewController::goChatsListPage() {

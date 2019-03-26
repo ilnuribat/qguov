@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QDebug>
+#include <QtWebSockets/QWebSocket>
 #include "chatsmodel.h"
 #include "messagesmodel.h"
 
@@ -15,6 +16,7 @@ class GlobalStore : public QObject
   public:
     explicit GlobalStore(QObject *parent = nullptr);
 
+    Q_INVOKABLE void startSubscriptions();
     ChatsModel *chatsModel() const;
     QString currentChatId() const;
     void setCurrentChatId(QString currentChatId);
@@ -30,6 +32,7 @@ class GlobalStore : public QObject
     ChatsModel *m_chatsModel;
     QString m_currentChatId;
     MessagesModel *m_messagesModel;
+    QWebSocket *m_websockets;
 };
 
 #endif // GLOBALSTORE_H

@@ -19,7 +19,6 @@ ApplicationWindow {
     id: globalStoreModel
     Component.onCompleted: {
       isGlobalStoreReady = true;
-      console.log('global store ready');
       if (isStackViewReady && isGlobalStoreReady) {
         stackViewController.handleAuthToken()
       }
@@ -42,6 +41,9 @@ ApplicationWindow {
         case 'chat':
           stackView.push(Qt.resolvedUrl('./Chat.qml'));
           break;
+        case 'Realtime':
+          stackView.replace(Qt.resolvedUrl('./Realtime.qml'))
+          break;
         default:
           console.error('no page on signal!');
       }
@@ -49,7 +51,6 @@ ApplicationWindow {
 
     Component.onCompleted: {
       isStackViewReady = true;
-      console.log('stackview ready');
       if (isStackViewReady && isGlobalStoreReady) {
         stackViewController.handleAuthToken();
       }
