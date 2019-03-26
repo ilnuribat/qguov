@@ -33,6 +33,7 @@ class GlobalStore : public QObject
     QString m_currentChatId;
     MessagesModel *m_messagesModel;
     QWebSocket *m_websockets;
+    HttpClient httpClient;
 };
 
 #endif // GLOBALSTORE_H

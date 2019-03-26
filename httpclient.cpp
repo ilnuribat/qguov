@@ -2,9 +2,15 @@
 
 HttpClient::HttpClient()
 {
-  this->login("ibatullin.it", "123");
-
   settings = new QSettings();
+}
+
+QString HttpClient::getHost() const {
+  return HOST;
+}
+
+QString HttpClient::getToken() const {
+  return settings->value("token").toString();
 }
 
 void HttpClient::handleResponse(QNetworkReply *reply) {
@@ -26,6 +32,7 @@ void HttpClient::request(QString query) {
 }
 
 void HttpClient::request(QString query, QJsonObject variables) {
+  qDebug() << "dont!" << query;
   QNetworkAccessManager *pManager = new QNetworkAccessManager(this);
 
   connect(pManager, &QNetworkAccessManager::finished, this, &HttpClient::handleResponse);
@@ -60,7 +67,7 @@ void HttpClient::login(QString login, QString password) {
 
   connect(pManager, &QNetworkAccessManager::finished, [=] (QNetworkReply *reply) {
     if (reply->error()) {
-      qDebug() << "error!";
+      qDebug() << "error!" << QString(reply->readAll());
     }
 
     QString response = QString(reply->readAll());

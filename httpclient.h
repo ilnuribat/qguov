@@ -19,6 +19,8 @@ class HttpClient: public QObject
     void login(QString login, QString passwod);
     void request(QString query, QJsonObject variables);
     void request(QString query);
+    QString getHost() const;
+    QString getToken() const;
 
   signals:
     void responseReady(QJsonObject &object);
@@ -26,7 +28,8 @@ class HttpClient: public QObject
     void handleResponse(QNetworkReply *reply);
 
   private:
-    QString URL = "http://dev.scis.xyz/api";
+    QString HOST = "localhost:8500"; // "dev.scis.xyz";
+    QString URL = "http://" + HOST + "/api";
     QSettings *settings;
 };
 
