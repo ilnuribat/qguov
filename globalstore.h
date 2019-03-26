@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QDebug>
 #include <QtWebSockets/QWebSocket>
+#include <QNetworkRequest>
 #include "chatsmodel.h"
 #include "messagesmodel.h"
 
@@ -34,6 +35,7 @@ class GlobalStore : public QObject
     MessagesModel *m_messagesModel;
     QWebSocket *m_websockets;
     HttpClient httpClient;
+    QNetworkRequest request;
 };
 
 #endif // GLOBALSTORE_H

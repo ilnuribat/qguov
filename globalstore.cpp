@@ -32,31 +32,38 @@ void GlobalStore::startSubscriptions() {
     qDebug() << "connected";
 
     QString token = httpClient.getToken();
-    QString subsQuery = R"({"type":"connection_init","payload":{"Authorization":"Bearer ")" + token + "\" } }";
-    // qDebug() << subsQuery;
-    // m_websockets->sendTextMessage(subsQuery);
+    QString subsQuery = "{\"type\":\"connection_init\",\"payload\":{\"Authorization\":\"Bearer " + token + "\" } }";
+    qDebug() << subsQuery;
+    m_websockets->sendTextMessage(subsQuery);
   });
 
   connect(m_websockets, &QWebSocket::disconnected, [this] () {
     qDebug() << "disconnected";
     qDebug() << "errorString: " << m_websockets->errorString();
     qDebug() << "lastError: " <<  m_websockets->error();
+    if (m_websockets->error() == QAbstractSocket::RemoteHostClosedError) {
+      qDebug() << "we should reconnect";
+      m_websockets->open(request);
+    }
   });
-  connect(m_websockets, &QWebSocket::pong, [] () {
-    qDebug() << "pong";
-  });
-  connect(m_websockets, &QWebSocket::textMessageReceived, [] () {
-    qDebug() << "new message!";
-  });
-  connect(m_websockets, &QWebSocket::textFrameReceived, [] (QString frame) {
-    qDebug() << "text frame: " << frame;
+  connect(m_websockets, &QWebSocket::textMessageReceived, [] (QString message) {
+    qDebug() << "new message!" << message;
+    QJsonObject jsonObj = QJsonDocument::fromJson(message.toUtf8()).object();
+
+    if (jsonObj.value("type").toString() == "connection_ack") {
+      qDebug() << "we are ready to subscribe!";
+    }
   });
   connect(m_websockets, QOverload<QAbstractSocket::SocketError>::of(&QWebSocket::error), [=](QAbstractSocket::SocketError error) {
     qDebug() << "error signal" << error;
   });
 
-  QString url = "ws://" + httpClient.getHost() + "/graphql";
+  QString url = "ws://" + httpClient.getHost() + "/api/graphql";
   qDebug() << "url of ->open() is " << url;
 
-  m_websockets->open(QUrl(url));
+
+  request.setUrl(QUrl(url));
+  request.setRawHeader("Sec-WebSocket-Protocol", "graphql-ws");
+
+  m_websockets->open(request);
 }

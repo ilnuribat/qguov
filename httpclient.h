@@ -28,7 +28,7 @@ class HttpClient: public QObject
     void handleResponse(QNetworkReply *reply);
 
   private:
-    QString HOST = "localhost:8500"; // "dev.scis.xyz";
+    QString HOST = "dev.scis.xyz";
     QString URL = "http://" + HOST + "/api";
     QSettings *settings;
 };
