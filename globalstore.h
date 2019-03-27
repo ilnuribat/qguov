@@ -7,6 +7,7 @@
 #include <QNetworkRequest>
 #include "chatsmodel.h"
 #include "messagesmodel.h"
+#include "cpp/websocket/websocket.h"
 
 class GlobalStore : public QObject
 {
@@ -30,13 +31,15 @@ class GlobalStore : public QObject
 
   public slots:
   private:
+    // models
     ChatsModel *m_chatsModel;
+    QHash<QString, MessagesModel*> messagesStore;
+
     QString m_currentChatId;
-    MessagesModel *m_messagesModel;
     QWebSocket *m_websockets;
     HttpClient httpClient;
     QNetworkRequest request;
-    QHash<QString, MessagesModel*> messagesStore;
+    WebSocket *m_websocket;
 };
 
 #endif // GLOBALSTORE_H

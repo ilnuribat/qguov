@@ -7,11 +7,21 @@ ChatListElement::ChatListElement(QString id, QString initials, QString icon, QSt
   m_icon = icon;
   m_message = message;
   m_id = id;
-
-  if (!date.isValid()) {
-    throw "invalid date";
-  }
   m_date = date;
+}
+
+ChatListElement::ChatListElement(QJsonObject data) {
+   m_id = data.value("id").toString();
+   m_initials = data.value("user").toObject().value("initials").toString();
+   m_icon = data.value("user").toObject().value("icon").toString();
+   m_message = data.value("lastMessage").toObject().value("text").toString();
+   QString createdAt = data.value("lastMessage").toObject().value("createdAt").toString();
+   QDateTime date = QDateTime::fromString(createdAt.left(19), "yyyy-MM-ddTHH:mm:ss");
+   if (m_icon.startsWith("https")) {
+     m_icon = "http" + m_icon.right(m_icon.length() - 5);
+   } else {
+     m_icon = "http://dev.scis.xyz/api/" + m_icon;
+   }
 }
 
 QString ChatListElement::initials() const {
@@ -48,7 +58,7 @@ void ChatListElement::setMessage(QString message) {
 
 void ChatListElement::setDate(QDateTime date) {
   if (!date.isValid()) {
-    throw "date is invalid";
+    qDebug() << "invalid date";
   }
   m_date = date;
 }

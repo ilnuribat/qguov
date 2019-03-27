@@ -9,6 +9,9 @@ Page {
     color: "#f4f8f9"
   }
 
+  // hack: start websocket, we have token
+  Component.onCompleted: globalStoreModel.startSubscriptions()
+
   Item {
     id: header
     anchors.top: parent.top

@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QDateTime>
+#include <QJsonObject>
 #include <QDebug>
 
 class ChatListElement
@@ -10,6 +11,7 @@ class ChatListElement
 public:
   ChatListElement();
   ChatListElement(QString id, QString initials, QString icon, QString message, QDateTime date);
+  ChatListElement(QJsonObject data);
 
   QString id() const;
   QString initials() const;
