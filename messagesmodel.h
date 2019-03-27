@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QAbstractListModel>
 #include <QModelIndex>
+#include <QDebug>
 #include "messageelement.h"
 
 class MessagesModel : public QAbstractListModel
@@ -20,6 +21,8 @@ class MessagesModel : public QAbstractListModel
 
     void append(MessageElement *message);
     void clear();
+    bool isEmpty() const;
+    void startFillingMessages(); // флажок isEmpty переключаем на false, даже если сообщений нет
 
     virtual int rowCount(const QModelIndex &parent) const;
     virtual QVariant data(const QModelIndex &index, int role) const;
@@ -27,6 +30,7 @@ class MessagesModel : public QAbstractListModel
 
   private:
     QList<MessageElement*> m_messages;
+    bool m_isEmpty;
 };
 
 #endif // MESSAGESMODEL_H

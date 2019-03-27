@@ -29,7 +29,6 @@ ApplicationWindow {
     id: stackViewController
     objectName: "stackView"
     onGoToPageChanged: {
-      console.log('page is:', page);
       switch (page) {
         case 'login':
           stackView.replace(Qt.resolvedUrl('./login.qml'));

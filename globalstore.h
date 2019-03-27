@@ -36,6 +36,7 @@ class GlobalStore : public QObject
     QWebSocket *m_websockets;
     HttpClient httpClient;
     QNetworkRequest request;
+    QHash<QString, MessagesModel*> messagesStore;
 };
 
 #endif // GLOBALSTORE_H

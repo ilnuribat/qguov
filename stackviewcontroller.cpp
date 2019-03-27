@@ -8,15 +8,13 @@ void StackViewController::handleAuthToken() {
   QString token = settings->value("token").toString();
 
   if (token.length() == 0) {
-    qDebug() << "no token found";
-    // show login page
     emit this->goToPageChanged("login");
 
     return;
   }
 
-  // emit this->goToPageChanged("chatList");
-  emit this->goToPageChanged("Realtime");
+  emit this->goToPageChanged("chatList");
+  // emit this->goToPageChanged("Realtime");
 }
 
 void StackViewController::goChatsListPage() {

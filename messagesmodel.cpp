@@ -2,6 +2,15 @@
 
 MessagesModel::MessagesModel()
 {
+  m_isEmpty = true;
+}
+
+bool MessagesModel::isEmpty() const {
+  return m_isEmpty;
+}
+
+void MessagesModel::startFillingMessages() {
+  m_isEmpty = false;
 }
 
 int MessagesModel::rowCount(const QModelIndex &parent) const {

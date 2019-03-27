@@ -30,18 +30,6 @@ Page {
     }
   }
 
-  ListModel {
-    ListElement {
-      message: "hi!"
-      userName: "Ilnur"
-    }
-    ListElement {
-      userName: "Kirill"
-      message: 'это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн.'
-    }
-  }
-
-
   ListView {
     id: listView
     anchors {
@@ -78,10 +66,5 @@ Page {
       }
     }
 
-  }
-
-  Component.onCompleted: {
-    listView.positionViewAtEnd();
-    console.log('chat is openned');
   }
 }

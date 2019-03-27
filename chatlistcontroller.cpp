@@ -2,8 +2,6 @@
 
 ChatListController::ChatListController(QObject *parent) : QObject(parent)
 {
-  // make http request
-  qDebug() << "init of Chat list controller";
   HttpClient *httpClient = new HttpClient();
 
   QString query =
@@ -40,8 +38,9 @@ ChatListController::ChatListController(QObject *parent) : QObject(parent)
       QDateTime date = QDateTime::fromString(createdAt.left(19), "yyyy-MM-ddTHH:mm:ss");
       if (icon.startsWith("https")) {
         icon = "http" + icon.right(icon.length() - 5);
+      } else {
+        icon = "http://dev.scis.xyz/api/" + icon;
       }
-      qDebug() << initials << icon << text << createdAt.left(19) << date;
       m_globalStore->chatsModel()->appendChat(new ChatListElement(id, initials, icon, text, date));
     }
     emit m_globalStore->chatsModelChanged();
@@ -49,7 +48,6 @@ ChatListController::ChatListController(QObject *parent) : QObject(parent)
 }
 
 void ChatListController::goToChat() {
-  qDebug() << "chat id is " << m_globalStore->currentChatId();
   m_stackView->goChatPage();
 }
 

@@ -49,7 +49,6 @@ Page {
         anchors.fill: parent
         onClicked: {
           globalStoreModel.currentChatId = id;
-          console.log('clicked', id, 'id' )
           chatListController.goToChat();
         }
       }

@@ -4,7 +4,6 @@ GlobalStore::GlobalStore(QObject *parent) : QObject(parent)
 {
   m_chatsModel = new ChatsModel(this);
   m_messagesModel = new MessagesModel();
-  m_currentChatId = "5c94c7b8d48d843070adfa96";
   m_websockets = new QWebSocket(httpClient.getHost(), QWebSocketProtocol::Version13, parent);
 }
 
@@ -13,7 +12,7 @@ ChatsModel *GlobalStore::chatsModel() const {
 }
 
 MessagesModel *GlobalStore::messagesModel() const {
-  return m_messagesModel;
+  return messagesStore[m_currentChatId];
 }
 
 QString GlobalStore::currentChatId() const {
@@ -22,8 +21,10 @@ QString GlobalStore::currentChatId() const {
 
 void GlobalStore::setCurrentChatId(QString currentChatId) {
   m_currentChatId = currentChatId;
+  if (!messagesStore.contains(m_currentChatId)) {
+    messagesStore[currentChatId] = new MessagesModel();
+  }
   emit currentChatIdChanged();
-  qDebug() << "currentChat changed";
 }
 
 void GlobalStore::startSubscriptions() {

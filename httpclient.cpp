@@ -32,7 +32,6 @@ void HttpClient::request(QString query) {
 }
 
 void HttpClient::request(QString query, QJsonObject variables) {
-  qDebug() << "dont!" << query;
   QNetworkAccessManager *pManager = new QNetworkAccessManager(this);
 
   connect(pManager, &QNetworkAccessManager::finished, this, &HttpClient::handleResponse);

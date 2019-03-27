@@ -11,11 +11,12 @@ void ChatController::setGlobalStore(QObject *globalStore) {
 }
 
 void ChatController::getMessages() {
-  qDebug() << "get messages";
   HttpClient *httpClient = new HttpClient();
   QString id = m_globalStore->currentChatId();
 
-  m_globalStore->messagesModel()->clear();
+  if (!m_globalStore->messagesModel()->isEmpty()) {
+    return;
+  }
 
   QString query =
       R"(
@@ -46,6 +47,8 @@ void ChatController::getMessages() {
   };
 
   connect(httpClient, &HttpClient::responseReady, [this] (QJsonObject data) {
+    m_globalStore->messagesModel()->startFillingMessages();
+
     QJsonArray messagesJson = data.value("data").toObject().value("direct").toObject().value("messages").toObject().value("edges").toArray();
 
     for (int i = 0; i< messagesJson.size(); i ++) {
