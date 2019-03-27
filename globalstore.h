@@ -30,13 +30,14 @@ class GlobalStore : public QObject
     void messagesModelChanged();
 
   public slots:
+    void messageAdded(QJsonObject data);
+
   private:
     // models
     ChatsModel *m_chatsModel;
     QHash<QString, MessagesModel*> messagesStore;
 
     QString m_currentChatId;
-    QWebSocket *m_websockets;
     HttpClient httpClient;
     QNetworkRequest request;
     WebSocket *m_websocket;

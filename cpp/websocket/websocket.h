@@ -1,7 +1,6 @@
 #ifndef WEBSOCKET_H
 #define WEBSOCKET_H
 
-#include <QSettings>
 #include <QNetworkRequest>
 #include <QDebug>
 #include <QWebSocket>
@@ -9,13 +8,19 @@
 #include <QObject>
 #include "httpclient.h"
 
-class WebSocket
+class WebSocket: public QObject
 {
+  Q_OBJECT
   public:
     WebSocket();
     void startSubscriptions();
+    void messageAddedSubs();
+
+  signals:
+    void messageAdded(QJsonObject data);
+
   private:
-    QSettings *m_settings;
+    void authenticate();
     QString m_token;
     QNetworkRequest m_request;
     HttpClient httpClient;
