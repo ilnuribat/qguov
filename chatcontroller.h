@@ -10,16 +10,19 @@
 class ChatController : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QObject *globalStore WRITE setGlobalStore)
+    Q_PROPERTY(QObject *globalStore READ globalStore WRITE setGlobalStore)
   public:
     explicit ChatController(QObject *parent = nullptr);
 
     void setGlobalStore(QObject *globalStore);
+    GlobalStore *globalStore() const;
 
   signals:
     void messagesLoaded();
+    void messagesModelChanged();
 
   public slots:
+    void messagesModelUpdated();
   private:
     GlobalStore *m_globalStore;
     void getMessages();

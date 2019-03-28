@@ -10,6 +10,31 @@ void ChatsModel::appendChat(ChatListElement *chat) {
   endInsertRows();
 }
 
+void ChatsModel::updateLastMessage(QJsonObject data) {
+  QString chatId = data.value("to").toObject().value("id").toString();
+
+  for (int i = 0; i < m_list.size(); i ++) {
+    ChatListElement *chat = m_list.at(i);
+
+    if (chat->id() == chatId) {
+      // update chat info
+      chat->setMessage(data.value("text").toString());
+      QModelIndex currentRow = ChatsModel::createIndex(i, 0);
+      dataChanged(currentRow, currentRow);
+      if (i == 0) {
+        break;
+      }
+      beginMoveRows(QModelIndex(), i, i, QModelIndex(), 0);
+      for (int j = i; j > 0; j --) {
+        m_list[j] = m_list[j - 1];
+      }
+      m_list[0] = chat;
+      endMoveRows();
+      break;
+    }
+  }
+}
+
 int ChatsModel::rowCount(const QModelIndex &parent) const {
   Q_UNUSED(parent)
 

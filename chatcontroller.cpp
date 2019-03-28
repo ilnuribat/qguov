@@ -5,9 +5,18 @@ ChatController::ChatController(QObject *parent) : QObject(parent)
 
 }
 
+GlobalStore *ChatController::globalStore() const {
+  return m_globalStore;
+}
+
 void ChatController::setGlobalStore(QObject *globalStore) {
   m_globalStore = qobject_cast<GlobalStore*>(globalStore);
   this->getMessages();
+  connect(m_globalStore, &GlobalStore::messagesModelChanged, this, &ChatController::messagesModelUpdated);
+}
+
+void ChatController::messagesModelUpdated() {
+  emit this->messagesModelChanged();
 }
 
 void ChatController::getMessages() {

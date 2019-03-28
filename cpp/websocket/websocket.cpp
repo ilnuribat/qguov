@@ -17,13 +17,12 @@ void WebSocket::messageAddedSubs() {
                             messageAdded {
                               id
                               text
-                              isDirect
                               createdAt
-                              userId
                               isRead
                               from {
                                 id
-                                username
+                                initials
+                                icon
                               }
                               to {
                                 __typename
@@ -51,6 +50,7 @@ void WebSocket::messageAddedSubs() {
      {"payload", payload }
    };
    m_websocket->sendTextMessage(QJsonDocument(subsObj).toJson());
+   qDebug() << "subscribed to to messageAdded";
 }
 
 void WebSocket::startSubscriptions() {
@@ -67,7 +67,8 @@ void WebSocket::startSubscriptions() {
     qDebug() << "disconnected";
     qDebug() << "errorString: " << m_websocket->errorString();
     qDebug() << "lastError: " <<  m_websocket->error();
-    if (m_websocket->error() == QAbstractSocket::RemoteHostClosedError) {
+    if (m_websocket->error() == QAbstractSocket::RemoteHostClosedError
+        || m_websocket->error() == QAbstractSocket::SocketTimeoutError) {
       qDebug() << "we should reconnect";
       m_websocket->open(m_request);
     }
@@ -75,8 +76,6 @@ void WebSocket::startSubscriptions() {
   QObject::connect(m_websocket, &QWebSocket::textMessageReceived, [=] (QString message) {
     QJsonObject jsonObj = QJsonDocument::fromJson(message.toUtf8()).object();
     QString messageType = jsonObj.value("type").toString();
-
-    qDebug() << "type: " << messageType;
 
     if (messageType == "connection_ack") {
       qDebug() << "we are ready to subscribe!";

@@ -5,11 +5,18 @@ GlobalStore::GlobalStore(QObject *parent) : QObject(parent)
   m_chatsModel = new ChatsModel(this);
   m_websocket = new WebSocket();
   connect(m_websocket, &WebSocket::messageAdded, this, &GlobalStore::messageAdded);
-
 }
 
 void GlobalStore::messageAdded(QJsonObject data) {
-  qDebug() << "handle in globalStore " << data;
+  QString chatId = data.value("to").toObject().value("id").toString();
+
+  if (!messagesStore.contains(chatId)) {
+    messagesStore[chatId] = new MessagesModel();
+  }
+  messagesStore[chatId]->append(new MessageElement(data));
+  emit messagesModelChanged();
+
+  m_chatsModel->updateLastMessage(data);
 }
 
 ChatsModel *GlobalStore::chatsModel() const {

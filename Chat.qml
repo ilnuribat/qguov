@@ -14,7 +14,11 @@ Page {
   ChatController {
     globalStore: globalStoreModel
     onMessagesLoaded: listView.positionViewAtEnd();
+    onMessagesModelChanged: {
+      listView.positionViewAtEnd();
+    }
   }
+
 
   Item {
     id: header

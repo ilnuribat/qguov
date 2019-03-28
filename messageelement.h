@@ -2,11 +2,14 @@
 #define MESSAGEELEMENT_H
 
 #include <QString>
+#include <QJsonObject>
+#include <QDebug>
 
 class MessageElement
 {
   public:
     MessageElement(QString id, QString message, QString initials);
+    MessageElement(QJsonObject data);
 
     QString getId() const;
     QString getMessage() const;
