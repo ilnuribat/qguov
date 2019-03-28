@@ -31,7 +31,7 @@ Page {
         verticalCenter: parent.verticalCenter
         horizontalCenter: parent.horizontalCenter
       }
-      text: 'chat name'
+      text: globalStoreModel.currentChat.chatName
     }
   }
 
@@ -39,7 +39,7 @@ Page {
     id: listView
     anchors {
       top: header.bottom
-      bottom: parent.bottom
+      bottom: sendMessageControls.top
     }
     width: parent.width
     model: globalStoreModel.messagesModel
@@ -70,6 +70,23 @@ Page {
         }
       }
     }
-
   }
+  RowLayout {
+    id: sendMessageControls
+    anchors.bottom: parent.bottom
+    Layout.maximumHeight: 40
+    width: parent.width
+    TextField {
+      Layout.fillHeight: false
+      Layout.fillWidth: true
+      placeholderText: qsTr('Введите сообщение...')
+    }
+    Button {
+      Layout.fillHeight: false
+      Layout.fillWidth: false
+      display: AbstractButton.IconOnly
+      icon.source: 'baseline_send_black_18dp.png'
+    }
+  }
+
 }

@@ -4,6 +4,16 @@ ChatsModel::ChatsModel(QObject *parent): QAbstractListModel (parent)
 {
 }
 
+ChatListElement *ChatsModel::getChatElementById(QString id) const {
+  for (int i = 0; i < m_list.size(); i ++) {
+    if (m_list.at(i)->id() == id) {
+      return m_list.at(i);
+    }
+  }
+  qDebug() << "no such chat";
+  return new ChatListElement();
+}
+
 void ChatsModel::appendChat(ChatListElement *chat) {
   beginInsertRows(QModelIndex(), m_list.size(), m_list.size());
   m_list.append(chat);

@@ -21,7 +21,7 @@ Page {
         left: parent.left
         verticalCenter: parent.verticalCenter
       }
-      text: 'Chat page'
+      text: qsTr('Личные чаты')
     }
   }
 

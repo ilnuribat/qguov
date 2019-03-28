@@ -6,6 +6,7 @@
 #include <QtWebSockets/QWebSocket>
 #include <QNetworkRequest>
 #include "chatsmodel.h"
+#include "chatlistelement.h"
 #include "messagesmodel.h"
 #include "cpp/websocket/websocket.h"
 
@@ -15,6 +16,7 @@ class GlobalStore : public QObject
     Q_PROPERTY(ChatsModel *chatsModel READ chatsModel NOTIFY chatsModelChanged)
     Q_PROPERTY(QString currentChatId READ currentChatId WRITE setCurrentChatId NOTIFY currentChatIdChanged)
     Q_PROPERTY(MessagesModel *messagesModel READ messagesModel NOTIFY messagesModelChanged)
+    Q_PROPERTY(ChatListElement *currentChat READ currentChat NOTIFY currentChatChanged)
   public:
     explicit GlobalStore(QObject *parent = nullptr);
 
@@ -23,11 +25,13 @@ class GlobalStore : public QObject
     QString currentChatId() const;
     void setCurrentChatId(QString currentChatId);
     MessagesModel *messagesModel() const;
+    ChatListElement *currentChat() const;
 
   signals:
     void chatsModelChanged();
     void currentChatIdChanged();
     void messagesModelChanged();
+    void currentChatChanged();
 
   public slots:
     void messageAdded(QJsonObject data);

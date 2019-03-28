@@ -23,6 +23,10 @@ ChatsModel *GlobalStore::chatsModel() const {
   return m_chatsModel;
 }
 
+ChatListElement *GlobalStore::currentChat() const {
+  return m_chatsModel->getChatElementById(m_currentChatId);
+}
+
 MessagesModel *GlobalStore::messagesModel() const {
   return messagesStore[m_currentChatId];
 }
@@ -37,6 +41,7 @@ void GlobalStore::setCurrentChatId(QString currentChatId) {
     messagesStore[currentChatId] = new MessagesModel();
   }
   emit currentChatIdChanged();
+  emit currentChatChanged();
 }
 
 void GlobalStore::startSubscriptions() {

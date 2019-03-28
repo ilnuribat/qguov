@@ -1,6 +1,6 @@
 #include "chatlistelement.h"
 
-ChatListElement::ChatListElement() {}
+ChatListElement::ChatListElement(QObject *parent): QObject(parent) {}
 
 ChatListElement::ChatListElement(QString id, QString initials, QString icon, QString message, QDateTime date) {
   m_initials = initials;
@@ -22,6 +22,10 @@ ChatListElement::ChatListElement(QJsonObject data) {
    } else {
      m_icon = "http://dev.scis.xyz/api/" + m_icon;
    }
+}
+
+QString ChatListElement::chatName() const {
+  return m_initials;
 }
 
 QString ChatListElement::initials() const {
