@@ -17,6 +17,7 @@ Page {
     onMessagesModelChanged: {
       listView.positionViewAtEnd();
     }
+    Component.onCompleted: listView.positionViewAtEnd();
   }
 
 
