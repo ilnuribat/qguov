@@ -16,10 +16,12 @@ class ChatController : public QObject
 
     void setGlobalStore(QObject *globalStore);
     GlobalStore *globalStore() const;
+    Q_INVOKABLE void sendMessage(QString message);
 
   signals:
     void messagesLoaded();
     void messagesModelChanged();
+    void messageSent();
 
   public slots:
     void messagesModelUpdated();

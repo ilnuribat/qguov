@@ -5,6 +5,38 @@ ChatController::ChatController(QObject *parent) : QObject(parent)
 
 }
 
+void ChatController::sendMessage(QString message) {
+  HttpClient *httpClient = new HttpClient();
+  QString query =
+      R"(
+        mutation($id: String!, $text: String!) {
+          createMessage(message: {
+            groupId: $id,
+            text: $text
+          }) {
+            id
+          }
+        }
+      )";
+  QJsonObject variables
+  {
+    {"id", m_globalStore->currentChatId()},
+    {"text", message},
+  };
+
+  connect(httpClient, &HttpClient::responseReady, [this] (QJsonObject data) {
+    qDebug() << data;
+    if (data.contains("errors")) {
+      qDebug() << "error on sending message" << data;
+      return;
+    }
+
+    emit messageSent();
+  });
+
+  httpClient->request(query, variables);
+}
+
 GlobalStore *ChatController::globalStore() const {
   return m_globalStore;
 }

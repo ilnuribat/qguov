@@ -12,11 +12,13 @@ Page {
 
 
   ChatController {
+    id: chatController
     globalStore: globalStoreModel
     onMessagesLoaded: listView.positionViewAtEnd();
     onMessagesModelChanged: {
       listView.positionViewAtEnd();
     }
+    onMessageSent: textField.clear();
     Component.onCompleted: listView.positionViewAtEnd();
   }
 
@@ -77,6 +79,7 @@ Page {
     Layout.maximumHeight: 40
     width: parent.width
     TextField {
+      id: textField
       Layout.fillHeight: false
       Layout.fillWidth: true
       placeholderText: qsTr('Введите сообщение...')
@@ -86,6 +89,10 @@ Page {
       Layout.fillWidth: false
       display: AbstractButton.IconOnly
       icon.source: 'baseline_send_black_18dp.png'
+      onClicked: {
+        console.log('sending message');
+        chatController.sendMessage(textField.text);
+      }
     }
   }
 
