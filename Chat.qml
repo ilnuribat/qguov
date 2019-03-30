@@ -13,7 +13,7 @@ Page {
 
   ChatController {
     id: chatController
-    globalStore: globalStoreModel
+    //globalStore: globalStoreModel
     onMessagesLoaded: listView.positionViewAtEnd();
     onMessagesModelChanged: {
       listView.positionViewAtEnd();
@@ -44,13 +44,32 @@ Page {
       bottom: sendMessageControls.top
     }
     width: parent.width
-    model: globalStoreModel.messagesModel
+    model: ListModel {
+        ListElement {
+            initials: 'user1'
+            message: 'message'
+            isMe: true
+        }
+        ListElement {
+            initials: 'user2'
+            message: 'message2'
+            isMe: false
+        }
+        ListElement {
+            initials: 'user1'
+            message: 'message\nnew line\nnew one'
+            isMe: true
+        }
+    }
+    // globalStoreModel.messagesModel
     spacing: 10
 
     delegate: Item {
       Rectangle {
         anchors.fill: parent
         color: 'white'
+        border.width: 1
+        border.color: 'green'
       }
 
       width: parent.width
@@ -58,17 +77,23 @@ Page {
       RowLayout {
         id: rowLayout
         width: parent.width
-        height: messageText.contentHeight
-        Text {
+        height: paneMessage.height
+        Pane {
+          id: paneMessage
+          topPadding: 5
+          bottomPadding: 5
           Layout.fillWidth: false
-          Layout.alignment: Qt.AlignTop
-          text: "<b>" + initials + ":</b>"
-        }
-        Text {
-          id: messageText
-          text: message
-          Layout.fillWidth: true
-          wrapMode: Text.WordWrap
+          background: Rectangle {
+              color: 'lightgray'
+              border.width: 1
+              border.color: 'red'
+          }
+
+          Text {
+            id: messageText
+            text: message
+            wrapMode: Text.WordWrap
+          }
         }
       }
     }

@@ -1,15 +1,14 @@
 #include "chatcontroller.h"
 
 ChatController::ChatController(QObject *parent) : QObject(parent)
-{
-
+{ 
 }
 
 void ChatController::sendMessage(QString message) {
   HttpClient *httpClient = new HttpClient();
   QString query =
       R"(
-        mutation($id: String!, $text: String!) {
+        mutation($id: ID!, $text: String!) {
           createMessage(message: {
             groupId: $id,
             text: $text

@@ -2,6 +2,7 @@
 
 GlobalStore::GlobalStore(QObject *parent) : QObject(parent)
 {
+  m_currentChatId = "5c9b592d7d226a001b7b95d7";
   m_chatsModel = new ChatsModel(this);
   m_websocket = new WebSocket();
   connect(m_websocket, &WebSocket::messageAdded, this, &GlobalStore::messageAdded);

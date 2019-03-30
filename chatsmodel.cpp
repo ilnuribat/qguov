@@ -4,7 +4,7 @@ ChatsModel::ChatsModel(QObject *parent): QAbstractListModel (parent)
 {
 }
 
-ChatListElement *ChatsModel::getChatElementById(QString id) const {
+ChatListElement *ChatsModel::getChatElementById(QString id) {
   for (int i = 0; i < m_list.size(); i ++) {
     if (m_list.at(i)->id() == id) {
       return m_list.at(i);
@@ -17,6 +17,7 @@ ChatListElement *ChatsModel::getChatElementById(QString id) const {
 void ChatsModel::appendChat(ChatListElement *chat) {
   beginInsertRows(QModelIndex(), m_list.size(), m_list.size());
   m_list.append(chat);
+  m_list.append(new ChatListElement());
   endInsertRows();
 }
 

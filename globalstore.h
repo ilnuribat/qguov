@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QtWebSockets/QWebSocket>
 #include <QNetworkRequest>
+#include <QSettings>
 #include "chatsmodel.h"
 #include "chatlistelement.h"
 #include "messagesmodel.h"

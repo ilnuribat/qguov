@@ -5,7 +5,6 @@
         <file>chatList.qml</file>
         <file>initPage.qml</file>
         <file>Chat.qml</file>
-        <file>Realtime.qml</file>
         <file>baseline_send_black_18dp.png</file>
     </qresource>
 </RCC>
