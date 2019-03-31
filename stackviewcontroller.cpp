@@ -4,6 +4,7 @@ StackViewController::StackViewController(QObject *parent) : QObject(parent) {
 }
 
 void StackViewController::handleAuthToken() {
+  qDebug() << "handle auth token";
   settings = new QSettings();
   QString token = settings->value("token").toString();
 
@@ -13,7 +14,7 @@ void StackViewController::handleAuthToken() {
     return;
   }
 
-  emit this->goToPageChanged("chat");
+  emit this->goToPageChanged("chatList");
 }
 
 void StackViewController::goChatsListPage() {

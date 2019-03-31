@@ -74,6 +74,7 @@ void ChatController::getMessages() {
                 text
                 createdAt
                 from {
+                  id
                   initials
                 }
               }
@@ -93,11 +94,8 @@ void ChatController::getMessages() {
 
     for (int i = 0; i< messagesJson.size(); i ++) {
       QJsonObject currentMessage = messagesJson.at(i).toObject().value("node").toObject();
-      QString initials = currentMessage.value("from").toObject().value("initials").toString();
-      QString id = currentMessage.value("id").toString();
-      QString text = currentMessage.value("text").toString();
 
-      m_globalStore->messagesModel()->append(new MessageElement(id, text, initials));
+      m_globalStore->messagesModel()->append(new MessageElement(currentMessage, m_globalStore->getUserId()));
     }
 
     emit m_globalStore->messagesModelChanged();

@@ -20,6 +20,7 @@ class GlobalStore : public QObject
     Q_PROPERTY(ChatListElement *currentChat READ currentChat NOTIFY currentChatChanged)
   public:
     explicit GlobalStore(QObject *parent = nullptr);
+    Q_INVOKABLE void initGlobalStore();
 
     Q_INVOKABLE void startSubscriptions();
     ChatsModel *chatsModel() const;
@@ -27,12 +28,14 @@ class GlobalStore : public QObject
     void setCurrentChatId(QString currentChatId);
     MessagesModel *messagesModel() const;
     ChatListElement *currentChat() const;
+    QString getUserId() const;
 
   signals:
     void chatsModelChanged();
     void currentChatIdChanged();
     void messagesModelChanged();
     void currentChatChanged();
+    void globalStoreIsReady();
 
   public slots:
     void messageAdded(QJsonObject data);
@@ -46,6 +49,7 @@ class GlobalStore : public QObject
     HttpClient httpClient;
     QNetworkRequest request;
     WebSocket *m_websocket;
+    QString m_userId;
 };
 
 #endif // GLOBALSTORE_H

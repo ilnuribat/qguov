@@ -2,10 +2,29 @@
 
 GlobalStore::GlobalStore(QObject *parent) : QObject(parent)
 {
-  m_currentChatId = "5c9b592d7d226a001b7b95d7";
+}
+
+void GlobalStore::initGlobalStore() {
   m_chatsModel = new ChatsModel(this);
   m_websocket = new WebSocket();
   connect(m_websocket, &WebSocket::messageAdded, this, &GlobalStore::messageAdded);
+  QSettings *m_settings = new QSettings();
+
+  if (m_settings->contains("userId")) {
+    m_userId = m_settings->value("userId").toString();
+    emit globalStoreIsReady();
+
+    return;
+  }
+
+  // no userId
+  HttpClient *httpClient = new HttpClient();
+  connect(httpClient, &HttpClient::responseReady, [=](QJsonObject data) {
+    m_userId = data.value("data").toObject().value("user").toObject().value("id").toString();
+    m_settings->setValue("userId", m_userId);
+    emit globalStoreIsReady();
+  });
+  httpClient->request("{ user { id } }");
 }
 
 void GlobalStore::messageAdded(QJsonObject data) {
@@ -14,7 +33,7 @@ void GlobalStore::messageAdded(QJsonObject data) {
   if (!messagesStore.contains(chatId)) {
     messagesStore[chatId] = new MessagesModel();
   }
-  messagesStore[chatId]->append(new MessageElement(data));
+  messagesStore[chatId]->append(new MessageElement(data, m_userId));
   emit messagesModelChanged();
 
   m_chatsModel->updateLastMessage(data);
@@ -34,6 +53,10 @@ MessagesModel *GlobalStore::messagesModel() const {
 
 QString GlobalStore::currentChatId() const {
   return m_currentChatId;
+}
+
+QString GlobalStore::getUserId() const {
+  return m_userId;
 }
 
 void GlobalStore::setCurrentChatId(QString currentChatId) {

@@ -14,6 +14,7 @@ class MessagesModel : public QAbstractListModel
     enum Roles {
       idRole = Qt::UserRole + 1,
       messageRole,
+      isMeRole,
       initialsRole,
     };
 

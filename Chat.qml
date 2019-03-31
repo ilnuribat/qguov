@@ -13,7 +13,7 @@ Page {
 
   ChatController {
     id: chatController
-    //globalStore: globalStoreModel
+    globalStore: globalStoreModel
     onMessagesLoaded: listView.positionViewAtEnd();
     onMessagesModelChanged: {
       listView.positionViewAtEnd();
@@ -25,7 +25,7 @@ Page {
 
   Item {
     id: header
-    height: 30
+    height: 60
     width: parent.width
     anchors.top: parent.top
     Text {
@@ -44,60 +44,53 @@ Page {
       bottom: sendMessageControls.top
     }
     width: parent.width
-    model: ListModel {
-        ListElement {
-            initials: 'user1'
-            message: 'message'
-            isMe: true
-        }
-        ListElement {
-            initials: 'user2'
-            message: 'message2'
-            isMe: false
-        }
-        ListElement {
-            initials: 'user1'
-            message: 'message\nnew line\nnew one'
-            isMe: true
-        }
-    }
-    // globalStoreModel.messagesModel
+    // model: ListModel {
+    //     ListElement {
+    //         initials: 'user1'
+    //         message: 'message'
+    //         isMe: true
+    //     }
+    //     ListElement {
+    //         initials: 'user2'
+    //         message: 'message2'
+    //         isMe: false
+    //     }
+    //     ListElement {
+    //         initials: 'user1'
+    //         message: 'message-------------------------\nnew line\nnew one'
+    //         isMe: true
+    //     }
+    // }
+    model: globalStoreModel.messagesModel
     spacing: 10
 
-    delegate: Item {
-      Rectangle {
-        anchors.fill: parent
-        color: 'white'
-        border.width: 1
-        border.color: 'green'
-      }
-
+    delegate: RowLayout {
       width: parent.width
-      height: rowLayout.height
-      RowLayout {
-        id: rowLayout
-        width: parent.width
-        height: paneMessage.height
-        Pane {
-          id: paneMessage
-          topPadding: 5
-          bottomPadding: 5
-          Layout.fillWidth: false
+      layoutDirection: isMe ? Qt.RightToLeft : Qt.LeftToRight
+      Pane {
+        id: paneMessage
           background: Rectangle {
-              color: 'lightgray'
-              border.width: 1
-              border.color: 'red'
-          }
+          color: 'lightgray'
+          radius: 10
+        }
 
+        ColumnLayout {
+          id: rowLayout
           Text {
             id: messageText
             text: message
             wrapMode: Text.WordWrap
+            horizontalAlignment: isMe ? Text.AlignRight : Text.AlignLeft
+          }
+          Text {
+            text: (new Date()).toString()
+            horizontalAlignment: isMe ? Text.AlignRight : Text.AlignLeft
           }
         }
       }
     }
   }
+
   RowLayout {
     id: sendMessageControls
     anchors.bottom: parent.bottom

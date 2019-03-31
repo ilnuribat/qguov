@@ -34,6 +34,7 @@ QVariant MessagesModel::data(const QModelIndex &index, int role) const {
     case idRole: return m_messages.at(index.row())->getId();
     case messageRole: return m_messages.at(index.row())->getMessage();
     case initialsRole: return m_messages.at(index.row())->getInitials();
+    case isMeRole: return m_messages.at(index.row())->getIsMe();
     default: return QVariant();
   };
 }
@@ -43,6 +44,7 @@ QHash<int, QByteArray> MessagesModel::roleNames() const {
   roles[idRole] = "id";
   roles[messageRole] = "message";
   roles[initialsRole] = "initials";
+  roles[isMeRole] = "isMe";
 
   return roles;
 }

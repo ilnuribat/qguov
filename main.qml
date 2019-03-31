@@ -17,12 +17,13 @@ ApplicationWindow {
 
   GlobalStore {
     id: globalStoreModel
-    Component.onCompleted: {
+    onGlobalStoreIsReady: {
       isGlobalStoreReady = true;
       if (isStackViewReady && isGlobalStoreReady) {
         stackViewController.handleAuthToken()
       }
     }
+    Component.onCompleted: initGlobalStore();
   }
 
   StackViewController {
