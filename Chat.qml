@@ -44,25 +44,8 @@ Page {
       bottom: sendMessageControls.top
     }
     width: parent.width
-    // model: ListModel {
-    //     ListElement {
-    //         initials: 'user1'
-    //         message: 'message'
-    //         isMe: true
-    //     }
-    //     ListElement {
-    //         initials: 'user2'
-    //         message: 'message2'
-    //         isMe: false
-    //     }
-    //     ListElement {
-    //         initials: 'user1'
-    //         message: 'message-------------------------\nnew line\nnew one'
-    //         isMe: true
-    //     }
-    // }
     model: globalStoreModel.messagesModel
-    spacing: 10
+    spacing: 5
 
     delegate: RowLayout {
       width: parent.width
@@ -101,6 +84,12 @@ Page {
       Layout.fillHeight: false
       Layout.fillWidth: true
       placeholderText: qsTr('Введите сообщение...')
+      Keys.onReleased: {
+        if ((event.key === Qt.Key_Return) && (event.modifiers & Qt.ControlModifier)) {
+          event.accepted = true;
+          chatController.sendMessage(textField.text);
+        }
+      }
     }
     Button {
       Layout.fillHeight: false
@@ -111,6 +100,7 @@ Page {
         console.log('sending message');
         chatController.sendMessage(textField.text);
       }
+
     }
   }
 
