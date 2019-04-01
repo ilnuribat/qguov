@@ -59,9 +59,9 @@ QVariant ChatsModel::data(const QModelIndex &index, int role) const {
   switch (role) {
     case initialsRole: return m_list.at(index.row())->initials();
     case iconRole: return m_list.at(index.row())->icon();
-    case messageRole: return m_list.at(index.row())->message();
-    case dateRole: return m_list.at(index.row())->date();
     case idRole: return m_list.at(index.row())->id();
+    case messageRole: return m_list.at(index.row())->lastMessage()->getMessage();
+    case dateRole: return m_list.at(index.row())->lastMessage()->getCreatedAt();
 
     default: return QVariant();
   }

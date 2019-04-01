@@ -2,26 +2,31 @@
 
 ChatListElement::ChatListElement(QObject *parent): QObject(parent) {}
 
-ChatListElement::ChatListElement(QString id, QString initials, QString icon, QString message, QDateTime date) {
-  m_initials = initials;
-  m_icon = icon;
-  m_message = message;
-  m_id = id;
-  m_date = date;
-}
-
 ChatListElement::ChatListElement(QJsonObject data) {
    m_id = data.value("id").toString();
    m_initials = data.value("user").toObject().value("initials").toString();
    m_icon = data.value("user").toObject().value("icon").toString();
+
+   if (data.contains("lastMessage") && !data.value("lastMessage").toObject().isEmpty()) {
+     m_lastMessage = new MessageGQL(data.value("lastMessage").toObject(), "");
+   }
    m_message = data.value("lastMessage").toObject().value("text").toString();
    QString createdAt = data.value("lastMessage").toObject().value("createdAt").toString();
    QDateTime date = QDateTime::fromString(createdAt.left(19), "yyyy-MM-ddTHH:mm:ss");
+
    if (m_icon.startsWith("https")) {
      m_icon = "http" + m_icon.right(m_icon.length() - 5);
    } else {
      m_icon = "http://dev.scis.xyz/api/" + m_icon;
    }
+}
+
+MessageGQL *ChatListElement::lastMessage() const {
+  if (m_lastMessage) {
+    return m_lastMessage;
+  }
+
+  return new MessageGQL(QJsonObject{}, "");
 }
 
 QString ChatListElement::chatName() const {

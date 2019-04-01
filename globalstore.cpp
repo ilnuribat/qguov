@@ -33,7 +33,7 @@ void GlobalStore::messageAdded(QJsonObject data) {
   if (!messagesStore.contains(chatId)) {
     messagesStore[chatId] = new MessagesModel();
   }
-  messagesStore[chatId]->append(new MessageElement(data, m_userId));
+  messagesStore[chatId]->append(new MessageGQL(data, m_userId));
   emit messagesModelChanged();
 
   m_chatsModel->updateLastMessage(data);

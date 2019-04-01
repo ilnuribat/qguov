@@ -46,6 +46,7 @@ Page {
     width: parent.width
     model: globalStoreModel.messagesModel
     spacing: 5
+    clip: true
 
     delegate: RowLayout {
       width: parent.width
@@ -66,7 +67,7 @@ Page {
             horizontalAlignment: isMe ? Text.AlignRight : Text.AlignLeft
           }
           Text {
-            text: (new Date()).toString()
+            text: createdAt
             horizontalAlignment: isMe ? Text.AlignRight : Text.AlignLeft
           }
         }

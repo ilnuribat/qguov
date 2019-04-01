@@ -19,7 +19,7 @@ int MessagesModel::rowCount(const QModelIndex &parent) const {
   return m_messages.size();
 }
 
-void MessagesModel::append(MessageElement *message) {
+void MessagesModel::append(MessageGQL *message) {
   beginInsertRows(QModelIndex(), m_messages.size(), m_messages.size());
   m_messages.push_back(message);
   endInsertRows();
@@ -35,6 +35,7 @@ QVariant MessagesModel::data(const QModelIndex &index, int role) const {
     case messageRole: return m_messages.at(index.row())->getMessage();
     case initialsRole: return m_messages.at(index.row())->getInitials();
     case isMeRole: return m_messages.at(index.row())->getIsMe();
+    case createdAtRole: return m_messages.at(index.row())->getCreatedAt();
     default: return QVariant();
   };
 }
@@ -45,6 +46,7 @@ QHash<int, QByteArray> MessagesModel::roleNames() const {
   roles[messageRole] = "message";
   roles[initialsRole] = "initials";
   roles[isMeRole] = "isMe";
+  roles[createdAtRole] = "createdAt";
 
   return roles;
 }

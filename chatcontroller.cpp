@@ -95,7 +95,7 @@ void ChatController::getMessages() {
     for (int i = 0; i< messagesJson.size(); i ++) {
       QJsonObject currentMessage = messagesJson.at(i).toObject().value("node").toObject();
 
-      m_globalStore->messagesModel()->append(new MessageElement(currentMessage, m_globalStore->getUserId()));
+      m_globalStore->messagesModel()->append(new MessageGQL(currentMessage, m_globalStore->getUserId()));
     }
 
     emit m_globalStore->messagesModelChanged();

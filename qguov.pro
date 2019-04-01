@@ -23,9 +23,9 @@ SOURCES += \
   chatlistcontroller.cpp \
     chatcontroller.cpp \
     messagesmodel.cpp \
-    messageelement.cpp \
     cpp/websocket/websocket.cpp \
-    cpp/websocket/messageaddedsubscription.cpp
+    cpp/websocket/messageaddedsubscription.cpp \
+    messagegql.cpp
 
 RESOURCES += qml.qrc
 
@@ -50,9 +50,9 @@ HEADERS += \
   chatlistcontroller.h \
     chatcontroller.h \
     messagesmodel.h \
-    messageelement.h \
     cpp/websocket/websocket.h \
-    cpp/websocket/messageaddedsubscription.h
+    cpp/websocket/messageaddedsubscription.h \
+    messagegql.h
 
 DISTFILES += \
   initPage.qml \

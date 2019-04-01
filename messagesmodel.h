@@ -5,7 +5,7 @@
 #include <QAbstractListModel>
 #include <QModelIndex>
 #include <QDebug>
-#include "messageelement.h"
+#include "messagegql.h"
 
 class MessagesModel : public QAbstractListModel
 {
@@ -16,11 +16,12 @@ class MessagesModel : public QAbstractListModel
       messageRole,
       isMeRole,
       initialsRole,
+      createdAtRole,
     };
 
     MessagesModel();
 
-    void append(MessageElement *message);
+    void append(MessageGQL *message);
     void clear();
     bool isEmpty() const;
     void startFillingMessages(); // флажок isEmpty переключаем на false, даже если сообщений нет
@@ -30,7 +31,7 @@ class MessagesModel : public QAbstractListModel
     virtual QHash<int, QByteArray> roleNames() const;
 
   private:
-    QList<MessageElement*> m_messages;
+    QList<MessageGQL*> m_messages;
     bool m_isEmpty;
 };
 

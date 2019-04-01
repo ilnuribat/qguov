@@ -6,14 +6,16 @@
 #include <QDateTime>
 #include <QJsonObject>
 #include <QDebug>
+#include "messagegql.h"
 
 class ChatListElement: public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString chatName READ chatName NOTIFY chatNameChanged)
+    Q_PROPERTY(MessageGQL *lastMessage READ lastMessage NOTIFY lastMessageChanged)
 public:
   explicit ChatListElement(QObject *parent = nullptr);
-  ChatListElement(QString id, QString initials, QString icon, QString message, QDateTime date);
+
   ChatListElement(QJsonObject data);
 
   QString id() const;
@@ -22,6 +24,7 @@ public:
   QString message() const;
   QString date() const;
   QString chatName() const;
+  MessageGQL *lastMessage() const;
 
   void setInitials(QString initials);
   void setIcon(QString icon);
@@ -30,6 +33,7 @@ public:
   void setId(QString id);
 signals:
   void chatNameChanged();
+  void lastMessageChanged();
 
 private:
   QString m_initials;
@@ -37,6 +41,7 @@ private:
   QString m_message;
   QDateTime m_date;
   QString m_id;
+  MessageGQL *m_lastMessage;
 
 };
 

@@ -4,22 +4,24 @@
 #include <QString>
 #include <QJsonObject>
 #include <QDebug>
+#include <QDateTime>
 
-class MessageElement
+class MessageGQL
 {
   public:
-    MessageElement(QString id, QString message, QString initials, bool isMe);
-    MessageElement(QJsonObject data, QString userId);
+    MessageGQL(QJsonObject data, QString userId);
 
     QString getId() const;
     QString getMessage() const;
     QString getInitials() const;
+    QString getCreatedAt() const;
     bool getIsMe() const;
 
   private:
     QString m_id;
     QString m_message;
     QString m_initials;
+    QDateTime m_createdAt;
     bool m_isMe;
 };
 

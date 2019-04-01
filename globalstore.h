@@ -6,6 +6,7 @@
 #include <QtWebSockets/QWebSocket>
 #include <QNetworkRequest>
 #include <QSettings>
+#include <QDateTime>
 #include "chatsmodel.h"
 #include "chatlistelement.h"
 #include "messagesmodel.h"
