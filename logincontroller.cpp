@@ -50,11 +50,15 @@ void LoginController::loginResponse(QJsonObject &object) {
     emit this->resultMessageChanged();
   }
 
-  QString token = object.value("data").toObject().value("login").toObject().value("token").toString();
+  QJsonObject loginObj = object.value("data").toObject().value("login").toObject();
+  QString token = loginObj.value("token").toString();
+  QString userId = loginObj.value("id").toString();
+
 
   qDebug() << "token ready" << token;
 
   settings->setValue("token", token);
+  settings->setValue("userId", userId);
 
   m_stackView->goChatsListPage();
 }
