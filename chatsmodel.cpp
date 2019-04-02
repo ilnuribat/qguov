@@ -20,7 +20,7 @@ void ChatsModel::appendChat(ChatListElement *chat) {
   endInsertRows();
 }
 
-void ChatsModel::updateLastMessage(QJsonObject data) {
+void ChatsModel::updateLastMessage(QJsonObject data, QString userId) {
   QString chatId = data.value("to").toObject().value("id").toString();
 
   for (int i = 0; i < m_list.size(); i ++) {
@@ -28,7 +28,9 @@ void ChatsModel::updateLastMessage(QJsonObject data) {
 
     if (chat->id() == chatId) {
       // update chat info
-      chat->setMessage(data.value("text").toString());
+      MessageGQL *lastMessage = new MessageGQL(data, userId);
+      chat->setLastMessage(lastMessage);
+
       QModelIndex currentRow = ChatsModel::createIndex(i, 0);
       dataChanged(currentRow, currentRow);
       if (i == 0) {

@@ -36,7 +36,7 @@ void GlobalStore::messageAdded(QJsonObject data) {
   messagesStore[chatId]->append(new MessageGQL(data, m_userId));
   emit messagesModelChanged();
 
-  m_chatsModel->updateLastMessage(data);
+  m_chatsModel->updateLastMessage(data, m_userId);
 }
 
 ChatsModel *GlobalStore::chatsModel() const {

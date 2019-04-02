@@ -21,16 +21,14 @@ public:
   QString id() const;
   QString initials() const;
   QString icon() const;
-  QString message() const;
-  QString date() const;
   QString chatName() const;
   MessageGQL *lastMessage() const;
 
   void setInitials(QString initials);
   void setIcon(QString icon);
-  void setMessage(QString message);
-  void setDate(QDateTime date);
   void setId(QString id);
+  void setLastMessage(MessageGQL *lastMessage);
+
 signals:
   void chatNameChanged();
   void lastMessageChanged();
@@ -38,11 +36,8 @@ signals:
 private:
   QString m_initials;
   QString m_icon;
-  QString m_message;
-  QDateTime m_date;
   QString m_id;
   MessageGQL *m_lastMessage;
-
 };
 
 #endif // CHATLISTELEMENT_H

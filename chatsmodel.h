@@ -22,7 +22,7 @@ public:
   ChatsModel(QObject *parent = nullptr);
 
   void appendChat(ChatListElement *chat);
-  void updateLastMessage(QJsonObject data);
+  void updateLastMessage(QJsonObject data, QString userId);
   ChatListElement *getChatElementById(QString id) const;
 
   virtual int rowCount(const QModelIndex &parent) const;
