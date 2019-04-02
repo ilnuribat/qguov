@@ -6,5 +6,6 @@
         <file>initPage.qml</file>
         <file>Chat.qml</file>
         <file>baseline_send_black_18dp.png</file>
+        <file>logo.png</file>
     </qresource>
 </RCC>
