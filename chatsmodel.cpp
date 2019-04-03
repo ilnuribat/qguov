@@ -4,17 +4,17 @@ ChatsModel::ChatsModel(QObject *parent): QAbstractListModel (parent)
 {
 }
 
-ChatListElement *ChatsModel::getChatElementById(QString id) const {
+DirectGQL *ChatsModel::getChatElementById(QString id) const {
   for (int i = 0; i < m_list.size(); i ++) {
     if (m_list.at(i)->id() == id) {
       return m_list.at(i);
     }
   }
   qDebug() << "no such chat";
-  return new ChatListElement();
+  return new DirectGQL();
 }
 
-void ChatsModel::appendChat(ChatListElement *chat) {
+void ChatsModel::appendChat(DirectGQL *chat) {
   beginInsertRows(QModelIndex(), m_list.size(), m_list.size());
   m_list.append(chat);
   endInsertRows();
@@ -24,7 +24,7 @@ void ChatsModel::updateLastMessage(QJsonObject data, QString userId) {
   QString chatId = data.value("to").toObject().value("id").toString();
 
   for (int i = 0; i < m_list.size(); i ++) {
-    ChatListElement *chat = m_list.at(i);
+    DirectGQL *chat = m_list.at(i);
 
     if (chat->id() == chatId) {
       // update chat info

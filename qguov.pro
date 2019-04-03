@@ -17,7 +17,6 @@ SOURCES += \
   logincontroller.cpp \
   stackviewcontroller.cpp \
   chatsmodel.cpp \
-  chatlistelement.cpp \
   httpclient.cpp \
   globalstore.cpp \
   chatlistcontroller.cpp \
@@ -25,7 +24,8 @@ SOURCES += \
     messagesmodel.cpp \
     cpp/websocket/websocket.cpp \
     cpp/websocket/messageaddedsubscription.cpp \
-    messagegql.cpp
+    messagegql.cpp \
+    directgql.cpp
 
 RESOURCES += qml.qrc
 
@@ -44,7 +44,6 @@ HEADERS += \
   logincontroller.h \
   stackviewcontroller.h \
   chatsmodel.h \
-  chatlistelement.h \
   httpclient.h \
   globalstore.h \
   chatlistcontroller.h \
@@ -52,7 +51,8 @@ HEADERS += \
     messagesmodel.h \
     cpp/websocket/websocket.h \
     cpp/websocket/messageaddedsubscription.h \
-    messagegql.h
+    messagegql.h \
+    directgql.h
 
 DISTFILES += \
   initPage.qml \

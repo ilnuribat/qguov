@@ -8,15 +8,15 @@
 #include <QDebug>
 #include "messagegql.h"
 
-class ChatListElement: public QObject
+class DirectGQL: public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString chatName READ chatName NOTIFY chatNameChanged)
     Q_PROPERTY(MessageGQL *lastMessage READ lastMessage NOTIFY lastMessageChanged)
 public:
-  explicit ChatListElement(QObject *parent = nullptr);
+  explicit DirectGQL(QObject *parent = nullptr);
 
-  ChatListElement(QJsonObject data);
+  DirectGQL(QJsonObject data);
 
   QString id() const;
   QString initials() const;

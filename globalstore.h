@@ -8,7 +8,7 @@
 #include <QSettings>
 #include <QDateTime>
 #include "chatsmodel.h"
-#include "chatlistelement.h"
+#include "directgql.h"
 #include "messagesmodel.h"
 #include "cpp/websocket/websocket.h"
 
@@ -18,7 +18,7 @@ class GlobalStore : public QObject
     Q_PROPERTY(ChatsModel *chatsModel READ chatsModel NOTIFY chatsModelChanged)
     Q_PROPERTY(QString currentChatId READ currentChatId WRITE setCurrentChatId NOTIFY currentChatIdChanged)
     Q_PROPERTY(MessagesModel *messagesModel READ messagesModel NOTIFY messagesModelChanged)
-    Q_PROPERTY(ChatListElement *currentChat READ currentChat NOTIFY currentChatChanged)
+    Q_PROPERTY(DirectGQL *currentChat READ currentChat NOTIFY currentChatChanged)
   public:
     explicit GlobalStore(QObject *parent = nullptr);
     Q_INVOKABLE void initGlobalStore();
@@ -28,7 +28,7 @@ class GlobalStore : public QObject
     QString currentChatId() const;
     void setCurrentChatId(QString currentChatId);
     MessagesModel *messagesModel() const;
-    ChatListElement *currentChat() const;
+    DirectGQL *currentChat() const;
     QString getUserId() const;
 
   signals:

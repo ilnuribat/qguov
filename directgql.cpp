@@ -1,8 +1,8 @@
-#include "chatlistelement.h"
+#include "directgql.h"
 
-ChatListElement::ChatListElement(QObject *parent): QObject(parent) {}
+DirectGQL::DirectGQL(QObject *parent): QObject(parent) {}
 
-ChatListElement::ChatListElement(QJsonObject data) {
+DirectGQL::DirectGQL(QJsonObject data) {
    m_id = data.value("id").toString();
    m_initials = data.value("user").toObject().value("initials").toString();
    m_icon = data.value("user").toObject().value("icon").toString();
@@ -18,7 +18,7 @@ ChatListElement::ChatListElement(QJsonObject data) {
    }
 }
 
-MessageGQL *ChatListElement::lastMessage() const {
+MessageGQL *DirectGQL::lastMessage() const {
   if (m_lastMessage) {
     return m_lastMessage;
   }
@@ -26,35 +26,35 @@ MessageGQL *ChatListElement::lastMessage() const {
   return new MessageGQL(QJsonObject{}, "");
 }
 
-QString ChatListElement::chatName() const {
+QString DirectGQL::chatName() const {
   return m_initials;
 }
 
-QString ChatListElement::initials() const {
+QString DirectGQL::initials() const {
   return m_initials;
 }
 
-QString ChatListElement::icon() const {
+QString DirectGQL::icon() const {
   return m_icon;
 }
 
-QString ChatListElement::id() const {
+QString DirectGQL::id() const {
   return m_id;
 }
 
-void ChatListElement::setInitials(QString initials) {
+void DirectGQL::setInitials(QString initials) {
   m_initials = initials;
 }
 
-void ChatListElement::setIcon(QString icon) {
+void DirectGQL::setIcon(QString icon) {
   m_icon = icon;
 }
 
-void ChatListElement::setId(QString id) {
+void DirectGQL::setId(QString id) {
   m_id = id;
 }
 
-void ChatListElement::setLastMessage(MessageGQL *lastMessage) {
+void DirectGQL::setLastMessage(MessageGQL *lastMessage) {
   m_lastMessage = lastMessage;
 }
 

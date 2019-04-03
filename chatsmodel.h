@@ -5,7 +5,7 @@
 #include <QAbstractListModel>
 #include <QDateTime>
 #include <QModelIndex>
-#include "chatlistelement.h"
+#include "directgql.h"
 #include "httpclient.h"
 
 class ChatsModel : public QAbstractListModel
@@ -21,9 +21,9 @@ public:
   };
   ChatsModel(QObject *parent = nullptr);
 
-  void appendChat(ChatListElement *chat);
+  void appendChat(DirectGQL *chat);
   void updateLastMessage(QJsonObject data, QString userId);
-  ChatListElement *getChatElementById(QString id) const;
+  DirectGQL *getChatElementById(QString id) const;
 
   virtual int rowCount(const QModelIndex &parent) const;
   virtual QVariant data(const QModelIndex &index, int role) const;
@@ -32,7 +32,7 @@ public:
   // Q_INVOKABLE void add();
 
 private:
-  QList<ChatListElement *> m_list;
+  QList<DirectGQL *> m_list;
 };
 
 #endif // CHATSMODEL_H

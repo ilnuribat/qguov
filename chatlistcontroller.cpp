@@ -30,7 +30,7 @@ ChatListController::ChatListController(QObject *parent) : QObject(parent)
 
     for (int i = 0; i < directs.size(); ++i) {
       QJsonObject direct = directs.at(i).toObject();
-      m_globalStore->chatsModel()->appendChat(new ChatListElement(direct));
+      m_globalStore->chatsModel()->appendChat(new DirectGQL(direct));
     }
     emit m_globalStore->chatsModelChanged();
   });

@@ -41,7 +41,7 @@ QString MessageGQL::getCreatedAt() const {
     return m_createdAt.toString("dd MMMM");
   }
   if (now.day() != m_createdAt.date().day()) {
-    return m_createdAt.toString("dd, ddd");
+    return m_createdAt.toString("ddd");
   }
   return m_createdAt.toString("hh:mm");
 }

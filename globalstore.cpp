@@ -43,7 +43,7 @@ ChatsModel *GlobalStore::chatsModel() const {
   return m_chatsModel;
 }
 
-ChatListElement *GlobalStore::currentChat() const {
+DirectGQL *GlobalStore::currentChat() const {
   return m_chatsModel->getChatElementById(m_currentChatId);
 }
 
