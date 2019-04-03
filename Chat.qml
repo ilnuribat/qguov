@@ -102,6 +102,7 @@ Page {
         chatController.sendMessage(textField.text);
       }
 
+      focusPolicy: Qt.NoFocus
     }
   }
 
